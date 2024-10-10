@@ -1,8 +1,8 @@
 package coldp
 
 import (
-	"github.com/gnames/dwca/pkg/ent/meta"
-	"honnef.co/go/tools/config"
+	"github.com/gnames/coldp/ent/meta"
+	"github.com/gnames/coldp/pkg/config"
 )
 
 type Archive interface {
@@ -10,7 +10,7 @@ type Archive interface {
 	Config() config.Config
 
 	// Meta returns the Meta object of the archive.
-	Meta() *meta.Meta
+	Meta() *meta.Data
 
 	// Load extracts the archive and loads data for Meta.
 	Load() error

@@ -29,7 +29,32 @@ type Config struct {
 	Quote string
 }
 
+// Option is a type of configuration options.
 type Option func(*Config)
+
+func OptCacheDir(s string) Option {
+	return func(cfg *Config) {
+		cfg.CacheDir = s
+	}
+}
+
+func OptWrongFieldsNum(r gnfmt.BadRow) Option {
+	return func(cfg *Config) {
+		cfg.WrongFieldsNum = r
+	}
+}
+
+func OptDelimiter(s string) Option {
+	return func(cfg *Config) {
+		cfg.Delimiter = s
+	}
+}
+
+func OptQuote(s string) Option {
+	return func(cfg *Config) {
+		cfg.Quote = s
+	}
+}
 
 // New creates a new Config object with default values, and allows to
 // override them with options.
