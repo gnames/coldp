@@ -11,3 +11,7 @@ type Taxon struct {
 	ReferenceID     string
 	Link            string
 }
+
+func (t *Taxon) Load(headers, row []string) error {
+	return nil
+}

@@ -1,15 +1,38 @@
 package coldp
 
+import "strings"
+
 type NomCode int
 
 const (
-	Bacterial NomCode = iota + 1
+	UnknownCode NomCode = iota
+	Bacterial
 	Botanical
 	Cultivars
 	PhytoSociological
 	Virus
 	Zoological
 )
+
+func NewNomCode(s string) NomCode {
+	s = strings.ToLower(s)
+	switch s {
+	case "1", "bacterial":
+		return Bacterial
+	case "2", "botanical":
+		return Botanical
+	case "3", "cultivars":
+		return Cultivars
+	case "4", "phytosociological":
+		return PhytoSociological
+	case "5", "virus":
+		return Virus
+	case "6", "zoological":
+		return Zoological
+	default:
+		return UnknownCode
+	}
+}
 
 type Gender int
 
