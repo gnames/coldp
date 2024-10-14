@@ -1,4 +1,4 @@
-package sysio
+package arcio
 
 import (
 	"archive/zip"
@@ -7,56 +7,41 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/gnames/coldp/config"
 	"github.com/gnames/coldp/ent/coldp"
 	"github.com/gnames/gnsys"
 )
 
-type sysio struct {
-	path string
-	cfg  config.Config
-}
-
-func New(cfg config.Config, path string) coldp.Sys {
-	res := sysio{
-		path: path,
-		cfg:  cfg,
-	}
-
-	return &res
-}
-
-func (s *sysio) Extract() error {
+func (a *arcio) Extract() error {
 	var err error
-	if strings.HasPrefix(s.path, "http") {
-		s.path, err = gnsys.Download(s.path, s.cfg.DownloadDir, true)
+	if strings.HasPrefix(a.path, "http") {
+		a.path, err = gnsys.Download(a.path, a.cfg.DownloadDir, true)
 		if err != nil {
 			return err
 		}
 	}
-	err = s.unzip()
+	err = a.unzip()
 	if err != nil {
 		return err
 	}
 	return nil
 }
 
-func (s *sysio) unzip() error {
-	exists, _ := gnsys.FileExists(s.path)
+func (a *arcio) unzip() error {
+	exists, _ := gnsys.FileExists(a.path)
 	if !exists {
-		return &coldp.ErrorFileMissing{Path: s.path}
+		return &coldp.ErrorFileMissing{Path: a.path}
 	}
 
 	// Open the zip file for reading.
-	r, err := zip.OpenReader(s.path)
+	r, err := zip.OpenReader(a.path)
 	if err != nil {
-		return &coldp.ErrExtract{Path: s.path, Err: err}
+		return &coldp.ErrExtract{Path: a.path, Err: err}
 	}
 	defer r.Close()
 
 	for _, f := range r.File {
 		// Construct the full path for the file/directory and ensure its directory exists.
-		fpath := filepath.Join(s.cfg.ExtractDir, f.Name)
+		fpath := filepath.Join(a.cfg.ExtractDir, f.Name)
 		if err := os.MkdirAll(filepath.Dir(fpath), os.ModePerm); err != nil {
 			return &coldp.ErrExtract{Path: fpath, Err: err}
 		}
@@ -93,12 +78,4 @@ func (s *sysio) unzip() error {
 	}
 
 	return nil
-}
-
-func (s *sysio) DirInfo() error {
-	return nil
-}
-
-func (s *sysio) Meta() (*coldp.Meta, error) {
-	return nil, nil
 }

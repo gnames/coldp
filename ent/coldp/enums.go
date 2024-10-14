@@ -34,10 +34,30 @@ func NewNomCode(s string) NomCode {
 	}
 }
 
+type ArchiveType int
+
+const (
+	ArchUnknown ArchiveType = iota
+	ArchName
+	ArchNameUsage
+)
+
 type Gender int
 
 const (
 	Masculine Gender = iota + 1
 	Feminine
 	Neutral
+)
+
+type FileType int
+
+const (
+	UnknownFileType FileType = iota
+	JSON
+	YAML
+	CSV
+	TSV
+	// pipe-separated file
+	PSV
 )

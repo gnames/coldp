@@ -1,6 +1,8 @@
 package coldp
 
-type Sys interface {
+import "sync"
+
+type Archive interface {
 	// ResetCache clears cache directory from files.
 	ResetCache() error
 
@@ -12,9 +14,17 @@ type Sys interface {
 	// format.
 	DirInfo() error
 
-	// LoadMeta populates coldp.Meta object with data from
-	// meta JSON or YAML file.
+	// DataPaths returns map where low-case name of data type is a key and
+	// path to corresponding file is the value.
+	DataPaths() map[string]string
+
+	// LoadMeta returns coldp.Meta struct. If the struct is empty it populates
+	// it with data from meta file.
 	Meta() (*Meta, error)
+}
+
+type Reader[T Data] interface {
+	Read(chan<- T, sync.WaitGroup) error
 }
 
 type Data interface {

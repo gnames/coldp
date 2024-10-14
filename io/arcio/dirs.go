@@ -1,11 +1,11 @@
-package sysio
+package arcio
 
 import (
 	"github.com/gnames/coldp/ent/coldp"
 	"github.com/gnames/gnsys"
 )
 
-func (s *sysio) ResetCache() error {
+func (s *arcio) ResetCache() error {
 	err := s.emptyCacheDir()
 	if err != nil {
 		return err
@@ -23,7 +23,7 @@ func (s *sysio) ResetCache() error {
 	return nil
 }
 
-func (s *sysio) emptyCacheDir() error {
+func (s *arcio) emptyCacheDir() error {
 	switch gnsys.GetDirState(s.cfg.CacheDir) {
 	case gnsys.DirAbsent:
 		return gnsys.MakeDir(s.cfg.CacheDir)
