@@ -1,6 +1,63 @@
 package coldp
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+	"log/slog"
+	"strings"
+	"sync"
+
+	"github.com/gnames/coldp/config"
+	"github.com/gnames/gnfmt/gncsv"
+	csvConfig "github.com/gnames/gnfmt/gncsv/config"
+	"github.com/gnames/gnlib"
+)
+
+func Read[T DataLoader](
+	cfg config.Config,
+	path string,
+	chOut chan T) error {
+	chIn := make(chan []string)
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	opts := []csvConfig.Option{
+		csvConfig.OptPath(path),
+		csvConfig.OptBadRowMode(cfg.BadRow),
+	}
+	csvCfg, err := csvConfig.New(opts...)
+	headers := gnlib.Map(csvCfg.Headers, func(s string) string {
+		return strings.ToLower(s)
+	})
+
+	go func() {
+		defer wg.Done()
+		for row := range chIn {
+			var t T
+			dl, warn := t.Load(headers, row)
+			t = dl.(T)
+			if warn != nil {
+				slog.Warn("Cannot read row", "warn", warn, "row", row)
+			}
+			chOut <- t
+		}
+	}()
+
+	if err != nil {
+		return err
+	}
+
+	csv := gncsv.New(csvCfg)
+	_, err = csv.Read(context.Background(), chIn)
+	if err != nil {
+		return err
+	}
+	close(chIn)
+	wg.Wait()
+	close(chOut)
+
+	return nil
+}
 
 type FieldNumberWarning struct {
 	FieldsNum, RowFieldsNum int

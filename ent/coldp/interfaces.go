@@ -1,6 +1,8 @@
 package coldp
 
-import "sync"
+import (
+	"github.com/gnames/coldp/config"
+)
 
 type Archive interface {
 	// ResetCache clears cache directory from files.
@@ -16,17 +18,16 @@ type Archive interface {
 
 	// DataPaths returns map where low-case name of data type is a key and
 	// path to corresponding file is the value.
-	DataPaths() map[string]string
+	DataPaths() map[DataType]string
 
-	// LoadMeta returns coldp.Meta struct. If the struct is empty it populates
-	// it with data from meta file.
+	// Config returns configuration settings of archive.
+	Config() config.Config
+
+	// Meta returns coldp.Meta struct. If the struct is empty it populates
+	// it with data from meta file first.
 	Meta() (*Meta, error)
 }
 
-type Reader[T Data] interface {
-	Read(chan<- T, sync.WaitGroup) error
-}
-
-type Data interface {
-	Load(header, row []string) error
+type DataLoader interface {
+	Load(header, row []string) (DataLoader, error)
 }

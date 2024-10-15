@@ -1,6 +1,7 @@
 package coldp_test
 
 import (
+	"fmt"
 	"path/filepath"
 	"testing"
 
@@ -83,7 +84,19 @@ func TestName(t *testing.T) {
 	path := filepath.Join("..", "..", "testdata", "name/ptero-yaml.zip")
 	arc, err = Extract(path)
 	assert.Nil(err)
-	_ = arc
+	namePath, ok := arc.DataPaths()[coldp.NameDT]
+	assert.True(ok)
+
+	ch := make(chan coldp.Name)
+
+	go func() {
+		for n := range ch {
+			fmt.Printf("%#v\n\n", n)
+		}
+	}()
+
+	err = coldp.Read(arc.Config(), namePath, ch)
+	assert.Nil(err)
 
 }
 

@@ -12,6 +12,15 @@ type Taxon struct {
 	Link            string
 }
 
-func (t *Taxon) Load(headers, row []string) error {
-	return nil
+func (t *Taxon) Load(headers, data []string) (DataLoader, error) {
+	row, warning := RowToMap(headers, data)
+	t.ID = row["id"]
+	t.NameID = row["nameid"]
+	t.ParentID = row["parentid"]
+	t.AccordingToID = row["accordingtoid"]
+	t.Scrutinizer = row["scrutinizer"]
+	t.ScrutinizerID = row["scrutinizerid"]
+	t.ReferenceID = row["referenceid"]
+	t.Link = row["link"]
+	return t, warning
 }

@@ -18,7 +18,7 @@ type Name struct {
 	Link                 string
 }
 
-func (n *Name) Load(headers, data []string) error {
+func (n Name) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	n.ID = row["id"]
 	n.AlternativeID = row["alternativeid"]
@@ -35,5 +35,5 @@ func (n *Name) Load(headers, data []string) error {
 	n.ReferenceID = row["referenceid"]
 	n.PublishedInYear = row["publishedinyear"]
 	n.Link = row["link"]
-	return warning
+	return n, warning
 }

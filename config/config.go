@@ -3,6 +3,8 @@ package config
 import (
 	"os"
 	"path/filepath"
+
+	"github.com/gnames/gnfmt"
 )
 
 // Config is a configuration object for the CoLDP archive
@@ -16,6 +18,10 @@ type Config struct {
 
 	// ExtractDir is used to store extracted files of DwCA archive.
 	ExtractDir string
+
+	// BadRow sets how to process rows with wrong number of fields in CSV
+	// files.
+	BadRow gnfmt.BadRow
 }
 
 // Option is a function type that allows to standardize how options to
@@ -26,6 +32,12 @@ type Option func(*Config)
 func OptCacheDir(s string) Option {
 	return func(c *Config) {
 		c.CacheDir = s
+	}
+}
+
+func OptBadRow(br gnfmt.BadRow) Option {
+	return func(c *Config) {
+		c.BadRow = br
 	}
 }
 

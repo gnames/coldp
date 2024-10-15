@@ -23,7 +23,7 @@ type arcio struct {
 
 	// dataPaths contains file paths to dataPaths files.
 	// key is low-case type of data, the value is the file path.
-	dataPaths map[string]string
+	dataPaths map[coldp.DataType]string
 
 	// dataType explains what kind of archive is detected.
 	// Can be Name or NameUsage. If neither is found
@@ -35,7 +35,7 @@ func New(cfg config.Config, path string) coldp.Archive {
 	res := arcio{
 		path:      path,
 		cfg:       cfg,
-		dataPaths: make(map[string]string),
+		dataPaths: make(map[coldp.DataType]string),
 	}
 
 	return &res
@@ -43,6 +43,10 @@ func New(cfg config.Config, path string) coldp.Archive {
 
 // DataPaths returns map of low-case names of data files without extensions
 // and the path to these files.
-func (a *arcio) DataPaths() map[string]string {
+func (a *arcio) DataPaths() map[coldp.DataType]string {
 	return a.dataPaths
+}
+
+func (a *arcio) Config() config.Config {
+	return a.cfg
 }

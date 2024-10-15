@@ -10,57 +10,42 @@ import (
 )
 
 func (a *arcio) DirInfo() error {
+	// get all fiels with their paths inside of the archive.
 	paths, err := a.getFiles()
 	if err != nil {
 		return err
 	}
+
 	// find directory where data files reside
 	dataDir := getDataDir(paths)
+	var dt coldp.DataType
 	var metaOK bool
 
 	for _, v := range paths {
 		dir, file, ext := gnsys.SplitPath(v)
+
+		// if the file is metadata file, get information about metadata.
 		metaOK = a.checkMeta(v, file, ext, metaOK)
 
 		if dir != dataDir {
 			continue
 		}
 
-		file = strings.ToLower(file)
-		switch file {
-		case "author", "namerelation", "taxon", "synonym", "nameusage",
-			"taxonproperty", "taxonconceptrelation", "speciesinteraction",
-			"speciesestimate", "reference", "typematerial", "distribution",
-			"media", "vernacularname", "treatment":
-			a.dataPaths[file] = v
-		default:
+		dt = coldp.NewDataType(file)
+		if dt != coldp.UnkownDT {
+			a.dataPaths[dt] = v
 		}
 	}
 
 	return nil
 }
 
-func typeMap() map[string]struct{} {
-	types := []string{"author", "namerelation", "taxon", "synonym", "nameusage",
-		"taxonproperty", "taxonconceptrelation", "speciesinteraction",
-		"speciesestimate", "reference", "typematerial", "distribution",
-		"media", "vernacularname", "treatment"}
-	res := make(map[string]struct{})
-	for _, v := range types {
-		res[v] = struct{}{}
-	}
-	return res
-}
-
 // getDataDir returns dataDir where data files are residing.
 func getDataDir(paths []string) string {
-	types := typeMap()
-
 	dirs := make(map[string]int)
 	for _, v := range paths {
 		dir, file, _ := gnsys.SplitPath(v)
-		file = strings.ToLower(file)
-		if _, ok := types[file]; ok {
+		if coldp.NewDataType(file) != coldp.UnkownDT {
 			dirs[dir]++
 		}
 	}
