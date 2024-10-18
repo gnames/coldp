@@ -36,6 +36,44 @@ func NewNomCode(s string) NomCode {
 	}
 }
 
+type NameStatus int
+
+const (
+	UnknownNS NameStatus = iota
+	EstablishedNS
+	AcceptableNS
+	UnacceptableNS
+	ConservedNS
+	RejectedNS
+	DoubtfulNS
+	ManuscriptNS
+	ChresonymNS
+)
+
+func NewNameStatus(s string) NameStatus {
+	s = strings.ToLower(s)
+	switch s {
+	case "1", "established":
+		return EstablishedNS
+	case "2", "acceptable":
+		return AcceptableNS
+	case "3", "unacceptable":
+		return UnacceptableNS
+	case "4", "conserved":
+		return ConservedNS
+	case "5", "rejected":
+		return RejectedNS
+	case "6", "doubtful":
+		return DoubtfulNS
+	case "7", "manuscript":
+		return ManuscriptNS
+	case "8", "chresonym":
+		return ChresonymNS
+	default:
+		return UnknownNS
+	}
+}
+
 // ArchiveType provides type of CoLDP. Can be 'flat' or NameUsage, and
 // 'original' or Name.
 type ArchiveType int

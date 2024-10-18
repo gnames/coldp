@@ -97,7 +97,6 @@ func TestName(t *testing.T) {
 
 	err = coldp.Read(arc.Config(), namePath, ch)
 	assert.Nil(err)
-
 }
 
 func Extract(path string) (coldp.Archive, error) {

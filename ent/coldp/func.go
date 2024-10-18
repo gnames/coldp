@@ -69,6 +69,16 @@ func (w *FieldNumberWarning) Error() string {
 	return w.Message
 }
 
+func ToBool(s string) bool {
+	s = strings.ToLower(s)
+	switch s {
+	case "1", "yes", "t", "true":
+		return true
+	default:
+		return false
+	}
+}
+
 func RowToMap(headers, row []string) (map[string]string, error) {
 	diff := len(headers) - len(row)
 	var warning error
