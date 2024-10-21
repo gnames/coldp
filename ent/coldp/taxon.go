@@ -12,7 +12,7 @@ type Taxon struct {
 	Link            string
 }
 
-func (t *Taxon) Load(headers, data []string) (DataLoader, error) {
+func (t Taxon) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	t.ID = row["id"]
 	t.NameID = row["nameid"]
