@@ -1,13 +1,13 @@
 package coldp
 
 type NameUsage struct {
-	ID                        string
-	AlternativeID             string
+	ID                        string // t
+	AlternativeID             string // t
 	NameAlternativeID         string
-	SourceID                  string
-	ParentID                  string
-	BasionymID                string
-	Status                    string
+	SourceID                  string // t
+	ParentID                  string // t
+	BasionymID                string // t
+	Status                    string // t
 	ScientificName            string
 	Authorship                string
 	Rank                      string
@@ -39,40 +39,40 @@ type NameUsage struct {
 	Etymology                 string
 	Code                      NomCode
 	NameStatus                NameStatus
-	AccordingToID             string
-	AccordingToPage           string
-	AccordingToPageLink       string
-	ReferenceID               string
-	Scrutinizer               string
-	ScrutinizerID             string
-	ScrutinizerDate           string
-	Extinct                   bool
-	TemporalRangeStart        string
-	TemporalRangeEnd          string
-	Environment               string
-	Species                   string
-	Section                   string
-	Subgenus                  string
-	Genus                     string
-	Subtribe                  string
-	Tribe                     string
-	Subfamily                 string
-	Family                    string
-	Superfamily               string
-	Suborder                  string
-	Order                     string
-	Subclass                  string
-	Class                     string
-	Subphylum                 string
-	Phylum                    string
-	Kingdom                   string
-	Ordinal                   string
-	BranchLength              string
-	Link                      string
+	AccordingToID             string // t
+	AccordingToPage           string // t
+	AccordingToPageLink       string // t
+	ReferenceID               string // t
+	Scrutinizer               string // t
+	ScrutinizerID             string // t
+	ScrutinizerDate           string // t
+	Extinct                   bool   // t
+	TemporalRangeStart        string // t
+	TemporalRangeEnd          string // t
+	Environment               string // t
+	Species                   string // t
+	Section                   string // t
+	Subgenus                  string // t
+	Genus                     string // t
+	Subtribe                  string // t
+	Tribe                     string // t
+	Subfamily                 string // t
+	Family                    string // t
+	Superfamily               string // t
+	Suborder                  string // t
+	Order                     string // t
+	Subclass                  string // t
+	Class                     string // t
+	Subphylum                 string // t
+	Phylum                    string // t
+	Kingdom                   string // t
+	Ordinal                   string // t
+	BranchLength              string // t
+	Link                      string // t
 	NameRemarks               string
-	Remarks                   string
-	Modified                  string
-	ModifiedBy                string
+	Remarks                   string // t
+	Modified                  string // t
+	ModifiedBy                string // t
 }
 
 func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
