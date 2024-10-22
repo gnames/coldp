@@ -4,8 +4,41 @@ import "strings"
 
 type Rank int
 
+func (r Rank) String() string {
+	var res string
+	var ok bool
+
+	if res, ok = rankToAbbr[r]; ok {
+		return res + "."
+	}
+	if res, ok = rankToString[r]; ok {
+		return res
+	}
+	// something has to be added if you see this return
+	return "missing, fix me"
+}
+
+func NewRank(s string) Rank {
+	s = strings.TrimSpace(s)
+	s = strings.Trim(s, ".")
+	s = strings.ToLower(s)
+	if s == "" {
+		return Unranked
+	}
+
+	var res Rank
+	var ok bool
+	if res, ok = abbrToRank[s]; ok {
+		return res
+	}
+	if res, ok = stringToRank[s]; ok {
+		return res
+	}
+	return UnknownRank
+}
+
 const (
-	Unranked Rank = iota
+	UnknownRank Rank = iota
 	Aberration
 	Biovar
 	Chemoform
@@ -109,180 +142,98 @@ const (
 	Supervariety
 	SupragenericName
 	Tribe
+	Unranked
 	Variety
 )
 
-func (r Rank) String() string {
-	if res, ok := rankToString[r]; ok {
-		return res
-	}
-	return "unknown?"
+var abbrToRank = map[string]Rank{
+	"superdom":   Superdomain,
+	"dom":        Domain,
+	"superreg":   Superkingdom,
+	"reg":        Kingdom,
+	"subreg":     Subkingdom,
+	"infrareg":   Infrakingdom,
+	"superphyl":  Superphylum,
+	"phyl":       Phylum,
+	"subphyl":    Subphylum,
+	"infraphyl":  Infraphylum,
+	"parvphyl":   Parvphylum,
+	"microphyl":  Microphylum,
+	"gigacl":     Gigaclass,
+	"megacl":     Megaclass,
+	"supercl":    Superclass,
+	"cl":         Class,
+	"subcl":      Subclass,
+	"subtercl":   Subterclass,
+	"parvcl":     Parvclass,
+	"superdiv":   Superdivision,
+	"div":        Division,
+	"subdiv":     Subdivision,
+	"infradiv":   Infradivision,
+	"superleg":   Superlegion,
+	"legion":     Legion,
+	"subleg":     Sublegion,
+	"infraleg":   Infralegion,
+	"gigaord":    Gigaorder,
+	"grandord":   Grandorder,
+	"mirord":     Mirorder,
+	"superord":   Superorder,
+	"ord":        Order,
+	"nanord":     Nanorder,
+	"hypord":     Hypoorder,
+	"minord":     Minorder,
+	"subord":     Suborder,
+	"infraord":   Infraorder,
+	"parvord":    Parvorder,
+	"supersect":  Supersection,
+	"sect":       Section,
+	"subsect":    Subsection,
+	"megafam":    Megafamily,
+	"grandfam":   Grandfamily,
+	"superfam":   Superfamily,
+	"fam":        Family,
+	"subfam":     Subfamily,
+	"infrafam":   Infrafamily,
+	"supertrib":  Supertribe,
+	"trib":       Tribe,
+	"subtrib":    Subtribe,
+	"infratrib":  Infratribe,
+	"supergen":   Supergenus,
+	"gen":        Genus,
+	"subgen":     Subgenus,
+	"infragen":   Infragenus,
+	"superser":   Superseries,
+	"ser":        Series,
+	"subser":     Subseries,
+	"sp":         Species,
+	"infrasp":    InfraspecificName,
+	"gx":         Grex,
+	"subsp":      Subspecies,
+	"convar":     Convariety,
+	"infrasubsp": InfrasubspecificName,
+	"ab":         Aberration,
+	"supervar":   Supervariety,
+	"var":        Variety,
+	"subvar":     Subvariety,
+	"superf":     Superform,
+	"f":          Form,
+	"subf":       Subform,
+	"pv":         Pathovar,
+	"f.sp":       FormaSpecialis,
+	"cv":         Cultivar,
+	"mut":        Mutatio,
 }
 
-func NewRank(s string) Rank {
-	s = strings.ToLower(s)
-	s = strings.ReplaceAll(s, ".", "")
-	s = strings.ReplaceAll(s, "_-", " ")
-	s = strings.TrimSpace(s)
-	switch s {
-	case "superdom":
-		return Superdomain
-	case "dom":
-		return Domain
-	case "superreg":
-		return Superkingdom
-	case "reg":
-		return Kingdom
-	case "subreg":
-		return Subkingdom
-	case "infrareg":
-		return Infrakingdom
-	case "superphyl":
-		return Superphylum
-	case "phyl":
-		return Phylum
-	case "subphyl":
-		return Subphylum
-	case "infraphyl":
-		return Infraphylum
-	case "parvphyl":
-		return Parvphylum
-	case "microphyl":
-		return Microphylum
-	case "gigacl":
-		return Gigaclass
-	case "megacl":
-		return Megaclass
-	case "supercl":
-		return Superclass
-	case "cl":
-		return Class
-	case "subcl":
-		return Subclass
-	case "subtercl":
-		return Subterclass
-	case "parvcl":
-		return Parvclass
-	case "superdiv":
-		return Superdivision
-	case "div":
-		return Division
-	case "subdiv":
-		return Subdivision
-	case "infradiv":
-		return Infradivision
-	case "superleg":
-		return Superlegion
-	case "legion":
-		return Legion
-	case "subleg":
-		return Sublegion
-	case "infraleg":
-		return Infralegion
-	case "gigaord":
-		return Gigaorder
-	case "grandord":
-		return Grandorder
-	case "mirord":
-		return Mirorder
-	case "superord":
-		return Superorder
-	case "ord":
-		return Order
-	case "nanord":
-		return Nanorder
-	case "hypord":
-		return Hypoorder
-	case "minord":
-		return Minorder
-	case "subord":
-		return Suborder
-	case "infraord":
-		return Infraorder
-	case "parvord":
-		return Parvorder
-	case "supersect":
-		return Supersection
-	case "sect":
-		return Section
-	case "subsect":
-		return Subsection
-	case "megafam":
-		return Megafamily
-	case "grandfam":
-		return Grandfamily
-	case "superfam":
-		return Superfamily
-	case "fam":
-		return Family
-	case "subfam":
-		return Subfamily
-	case "infrafam":
-		return Infrafamily
-	case "supertrib":
-		return Supertribe
-	case "trib":
-		return Tribe
-	case "subtrib":
-		return Subtribe
-	case "infratrib":
-		return Infratribe
-	case "supergen":
-		return Supergenus
-	case "gen":
-		return Genus
-	case "subgen":
-		return Subgenus
-	case "infragen":
-		return Infragenus
-	case "superser":
-		return Superseries
-	case "ser":
-		return Series
-	case "subser":
-		return Subseries
-	case "sp":
-		return Species
-	case "infrasp":
-		return InfraspecificName
-	case "gx":
-		return Grex
-	case "subsp":
-		return Subspecies
-	case "convar":
-		return Convariety
-	case "infrasubsp":
-		return InfrasubspecificName
-	case "ab":
-		return Aberration
-	case "supervar":
-		return Supervariety
-	case "var":
-		return Variety
-	case "subvar":
-		return Subvariety
-	case "superf":
-		return Superform
-	case "f":
-		return Form
-	case "subf":
-		return Subform
-	case "pv":
-		return Pathovar
-	case "fsp":
-		return FormaSpecialis
-	case "cv":
-		return Cultivar
-	case "mut":
-		return Mutatio
+var rankToAbbr = func() map[Rank]string {
+	res := make(map[Rank]string)
+	for k, v := range abbrToRank {
+		res[v] = k
 	}
-	if res, ok := stringToRank[s]; ok {
-		return res
-	}
-	return Unranked
-}
+	return res
+}()
 
 var rankToString = map[Rank]string{
+	UnknownRank:          "unknown",
 	Unranked:             "unranked",
 	Aberration:           "aberration",
 	Biovar:               "biovar",
