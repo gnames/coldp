@@ -7,7 +7,7 @@ type Name struct {
 	BasionymID                string
 	ScientificName            string
 	Authorship                string
-	Rank                      string
+	Rank                      Rank
 	Uninomial                 string
 	Genus                     string
 	InfragenericEpithet       string
@@ -38,7 +38,7 @@ type Name struct {
 	Link                      string
 	Remarks                   string
 	Modified                  string
-	Modified_by               string
+	ModifiedBy                string
 }
 
 func (n Name) Load(headers, data []string) (DataLoader, error) {
@@ -49,7 +49,7 @@ func (n Name) Load(headers, data []string) (DataLoader, error) {
 	n.BasionymID = row["basionym_id"]
 	n.ScientificName = row["scientific_name"]
 	n.Authorship = row["authorship"]
-	n.Rank = row["rank"]
+	n.Rank = NewRank(row["rank"])
 	n.Uninomial = row["uninomial"]
 	n.Genus = row["genus"]
 	n.InfragenericEpithet = row["infrageneric_epithet"]
@@ -80,6 +80,6 @@ func (n Name) Load(headers, data []string) (DataLoader, error) {
 	n.Link = row["link"]
 	n.Remarks = row["remarks"]
 	n.Modified = row["modified"]
-	n.Modified_by = row["modified_by"]
+	n.ModifiedBy = row["modified_by"]
 	return n, warning
 }
