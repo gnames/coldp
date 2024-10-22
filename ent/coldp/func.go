@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"log/slog"
+	"strconv"
 	"strings"
 	"sync"
 
@@ -69,10 +70,22 @@ func (w *FieldNumberWarning) Error() string {
 	return w.Message
 }
 
+func ToInt(s string) int {
+	s = strings.ToLower(s)
+	s = strings.TrimSpace(s)
+	res, _ := strconv.Atoi(s)
+	return res
+}
+
 func ToBool(s string) bool {
 	s = strings.ToLower(s)
-	switch s {
-	case "1", "yes", "t", "true":
+	s = strings.TrimSpace(s)
+	if s == "" {
+		return false
+	}
+	b := s[0]
+	switch b {
+	case '1', 'y', 't':
 		return true
 	default:
 		return false
