@@ -74,6 +74,32 @@ func NewNameStatus(s string) NameStatus {
 	}
 }
 
+type NamePart int
+
+const (
+	UnknownNP NamePart = iota
+	GenericNP
+	InfragenericNP
+	SpecificNP
+	InfraspecificNP
+)
+
+func NewNamePart(s string) NamePart {
+	s = strings.ToLower(s)
+	switch s {
+	case "1", "generic":
+		return GenericNP
+	case "2", "infrageneric":
+		return InfraspecificNP
+	case "3", "specific":
+		return SpecificNP
+	case "4", "infraspecific":
+		return InfraspecificNP
+	default:
+		return UnknownNP
+	}
+}
+
 // ArchiveType provides type of CoLDP. Can be 'flat' or NameUsage, and
 // 'original' or Name.
 type ArchiveType int

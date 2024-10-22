@@ -2,6 +2,7 @@ package coldp
 
 type Vernacular struct {
 	TaxonID         string
+	SourceID        string
 	Name            string
 	Transliteration string
 	Language        string
@@ -18,6 +19,7 @@ type Vernacular struct {
 func (v Vernacular) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	v.TaxonID = row["taxonid"]
+	v.SourceID = row["source_id"]
 	v.Name = row["name"]
 	v.Transliteration = row["transliteration"]
 	v.Language = row["language"]
