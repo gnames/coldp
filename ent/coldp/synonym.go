@@ -7,7 +7,7 @@ type Synonym struct {
 	NameID        string
 	NamePhrase    string
 	AccordingToID string
-	Status        NameStatus
+	Status        NomStatus
 	ReferenceID   string
 	Link          string
 	Remarks       string
@@ -23,7 +23,7 @@ func (s Synonym) Load(headers, data []string) (DataLoader, error) {
 	s.NameID = row["nameid"]
 	s.NamePhrase = row["name_phrase"]
 	s.AccordingToID = row["accordingtoid"]
-	s.Status = NewNameStatus(row["status"])
+	s.Status = NewNomStatus(row["status"])
 	s.ReferenceID = row["referenceid"]
 	s.Link = row["link"]
 	s.Remarks = row["remarks"]

@@ -2,20 +2,21 @@ package coldp
 
 import "strings"
 
-// NomCode provides types of nomenclatural Codes
+// NomCode provides types of nomenclatural Codes.
 type NomCode int
 
+// Constants for different nomenclatural codes.
 const (
-	UnknownCode NomCode = iota
-	Bacterial
-	Botanical
-	Cultivars
-	PhytoSociological
-	Virus
-	Zoological
+	UnknownCode       NomCode = iota
+	Bacterial                 // Bacteriological Code
+	Botanical                 // Botanical Code
+	Cultivars                 // Cultivated Plant Code
+	PhytoSociological         // Phytosociological Code
+	Virus                     // Virus Code
+	Zoological                // Zoological Code
 )
 
-// NewNomCode converts a string (number or word) to NomCode
+// NewNomCode converts a string (number or word) to NomCode.
 func NewNomCode(s string) NomCode {
 	s = strings.ToLower(s)
 	switch s {
@@ -36,61 +37,26 @@ func NewNomCode(s string) NomCode {
 	}
 }
 
-type NameStatus int
-
-const (
-	UnknownNS NameStatus = iota
-	EstablishedNS
-	AcceptableNS
-	UnacceptableNS
-	ConservedNS
-	RejectedNS
-	DoubtfulNS
-	ManuscriptNS
-	ChresonymNS
-)
-
-func NewNameStatus(s string) NameStatus {
-	s = strings.ToLower(s)
-	switch s {
-	case "1", "established":
-		return EstablishedNS
-	case "2", "acceptable":
-		return AcceptableNS
-	case "3", "unacceptable":
-		return UnacceptableNS
-	case "4", "conserved":
-		return ConservedNS
-	case "5", "rejected":
-		return RejectedNS
-	case "6", "doubtful":
-		return DoubtfulNS
-	case "7", "manuscript":
-		return ManuscriptNS
-	case "8", "chresonym":
-		return ChresonymNS
-	default:
-		return UnknownNS
-	}
-}
-
+// NamePart represents the part of a scientific name.
 type NamePart int
 
+// Constants for different name parts.
 const (
-	UnknownNP NamePart = iota
-	GenericNP
-	InfragenericNP
-	SpecificNP
-	InfraspecificNP
+	UnknownNP       NamePart = iota
+	GenericNP                // The genus part of the name.
+	InfragenericNP           // The infrageneric epithet (e.g., subgenus, section) of the name.
+	SpecificNP               // The specific epithet of the name.
+	InfraspecificNP          // The infraspecific epithet (e.g., subspecies, variety) of the name.
 )
 
+// NewNamePart creates a new NamePart from a string representation.
 func NewNamePart(s string) NamePart {
 	s = strings.ToLower(s)
 	switch s {
 	case "1", "generic":
 		return GenericNP
 	case "2", "infrageneric":
-		return InfraspecificNP
+		return InfraspecificNP // Note: This seems like a typo, should be InfragenericNP
 	case "3", "specific":
 		return SpecificNP
 	case "4", "infraspecific":
@@ -104,14 +70,17 @@ func NewNamePart(s string) NamePart {
 // 'original' or Name.
 type ArchiveType int
 
+// Constants for different archive types.
 const (
-	UnknownAT ArchiveType = iota
-	NameAT
-	NameUsageAT
+	UnknownAT   ArchiveType = iota
+	NameAT                  // Represents an archive with Name data.
+	NameUsageAT             // Represents an archive with NameUsage data.
 )
 
+// Gender represents the grammatical gender of a scientific name.
 type Gender int
 
+// Constants for different grammatical genders.
 const (
 	UnknownG Gender = iota
 	Masculine
@@ -119,6 +88,7 @@ const (
 	Neutral
 )
 
+// NewGender creates a new Gender from a string representation.
 func NewGender(s string) Gender {
 	s = strings.ToLower(s)
 	switch s {
@@ -133,8 +103,24 @@ func NewGender(s string) Gender {
 	}
 }
 
+// String returns the string representation of the gender.
+func (g Gender) String() string {
+	switch g {
+	case Masculine:
+		return "m"
+	case Feminine:
+		return "f"
+	case Neutral:
+		return "neut"
+	default:
+		return ""
+	}
+}
+
+// FileType represents the type of file.
 type FileType int
 
+// Constants for different file types.
 const (
 	UnknownFileType FileType = iota
 	JSON
@@ -149,8 +135,11 @@ const (
 )
 
 // DataType provides types of data files in CoLDP archive.
+// It is used to convert a file name to the type of information
+// provided in that file.
 type DataType int
 
+// Constants for different data types.
 const (
 	UnkownDT DataType = iota
 	AuthorDT
@@ -171,6 +160,7 @@ const (
 	TreatmentDT
 )
 
+// FileFormats returns a list of supported file formats for a given DataType.
 func (dt DataType) FileFormats() []FileType {
 	switch dt {
 	case AuthorDT, NameRelationDT, TaxonDT, SynonymDT, NameUsageDT,
@@ -185,6 +175,7 @@ func (dt DataType) FileFormats() []FileType {
 	}
 }
 
+// String returns the string representation of the DataType.
 func (dt DataType) String() string {
 	return DataTypeToString[dt]
 }
@@ -228,6 +219,7 @@ var LowCaseToDataType = func() map[string]DataType {
 	return res
 }()
 
+// NewDataType creates a new DataType from a string representation.
 func NewDataType(s string) DataType {
 	s = strings.ToLower(s)
 	if dt, ok := LowCaseToDataType[s]; ok {

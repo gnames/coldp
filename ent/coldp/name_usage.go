@@ -38,7 +38,7 @@ type NameUsage struct {
 	GenderAgreement           string
 	Etymology                 string
 	Code                      NomCode
-	NameStatus                NameStatus
+	NameStatus                NomStatus
 	AccordingToID             string // t
 	AccordingToPage           string // t
 	AccordingToPageLink       string // t
@@ -114,7 +114,7 @@ func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
 	n.GenderAgreement = row["genderagreement"]
 	n.Etymology = row["etymology"]
 	n.Code = NewNomCode(row["code"])
-	n.NameStatus = NewNameStatus(row["namestatus"])
+	n.NameStatus = NewNomStatus(row["namestatus"])
 	n.AccordingToID = row["accordingtoid"]
 	n.AccordingToPage = row["accordingtopage"]
 	n.AccordingToPageLink = row["accordingtopagelink"]

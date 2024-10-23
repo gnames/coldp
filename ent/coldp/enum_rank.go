@@ -2,12 +2,19 @@ package coldp
 
 import "strings"
 
+// Rank represents the taxonomic rank of a scientific name.
 type Rank int
 
+// String returns the string representation of the rank.
+// It prioritizes abbreviations if available, then falls back to full names.
 func (r Rank) String() string {
 	var res string
 	var ok bool
 
+	switch r {
+	case UnknownRank, Unranked:
+		return ""
+	}
 	if res, ok = rankToAbbr[r]; ok {
 		return res + "."
 	}
@@ -18,6 +25,8 @@ func (r Rank) String() string {
 	return "missing, fix me"
 }
 
+// NewRank creates a new Rank from a string representation.
+// It handles trimming and normalization to ensure consistent matching.
 func NewRank(s string) Rank {
 	s = strings.TrimSpace(s)
 	s = strings.Trim(s, ".")
@@ -37,6 +46,7 @@ func NewRank(s string) Rank {
 	return UnknownRank
 }
 
+// Constants for different taxonomic ranks.
 const (
 	UnknownRank Rank = iota
 	Aberration
@@ -146,6 +156,7 @@ const (
 	Variety
 )
 
+// abbrToRank maps rank abbreviations to their corresponding Rank values.
 var abbrToRank = map[string]Rank{
 	"superdom":   Superdomain,
 	"dom":        Domain,
@@ -224,6 +235,7 @@ var abbrToRank = map[string]Rank{
 	"mut":        Mutatio,
 }
 
+// rankToAbbr maps Rank values to their corresponding abbreviations.
 var rankToAbbr = func() map[Rank]string {
 	res := make(map[Rank]string)
 	for k, v := range abbrToRank {
@@ -232,6 +244,7 @@ var rankToAbbr = func() map[Rank]string {
 	return res
 }()
 
+// rankToString maps Rank values to their full string names.
 var rankToString = map[Rank]string{
 	UnknownRank:          "unknown",
 	Unranked:             "unranked",
@@ -341,6 +354,7 @@ var rankToString = map[Rank]string{
 	Variety:              "variety",
 }
 
+// abbrToRank maps rank strings to their corresponding Rank values.
 var stringToRank = func() map[string]Rank {
 	res := make(map[string]Rank)
 	for k, v := range rankToString {
