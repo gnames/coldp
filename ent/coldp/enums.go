@@ -37,6 +37,52 @@ func NewNomCode(s string) NomCode {
 	}
 }
 
+type NomRelType int
+
+const (
+	UnknownNomRelType NomRelType = iota
+	SpellingCorrection
+	Basionym
+	BasedOn
+	ReplacementName
+	ConservedNRT
+	LaterHomonym
+	Superfluous
+	Homotypic
+	Type
+)
+
+var nomRelTypeToString = map[NomRelType]string{
+	SpellingCorrection: "spelling correction",
+	Basionym:           "basionym",
+	BasedOn:            "basedon",
+	ReplacementName:    "replacement name",
+	ConservedNRT:       "conserved",
+	LaterHomonym:       "later homonym",
+	Superfluous:        "superfluous",
+	Homotypic:          "homotypic",
+	Type:               "type",
+}
+
+var stringToNomRelType = func() map[string]NomRelType {
+	res := make(map[string]NomRelType)
+	for k, v := range nomRelTypeToString {
+		v = strings.ReplaceAll(v, " ", "")
+		res[v] = k
+	}
+	return res
+}()
+
+func NewNomRelType(s string) NomRelType {
+	s = strings.ToLower(s)
+	s = strings.ReplaceAll(s, " ", "")
+	s = strings.ReplaceAll(s, "_", "")
+	if res, ok := stringToNomRelType[s]; ok {
+		return res
+	}
+	return UnknownNomRelType
+}
+
 // NamePart represents the part of a scientific name.
 type NamePart int
 
@@ -56,7 +102,7 @@ func NewNamePart(s string) NamePart {
 	case "1", "generic":
 		return GenericNP
 	case "2", "infrageneric":
-		return InfraspecificNP // Note: This seems like a typo, should be InfragenericNP
+		return InfragenericNP
 	case "3", "specific":
 		return SpecificNP
 	case "4", "infraspecific":
@@ -76,6 +122,90 @@ const (
 	NameAT                  // Represents an archive with Name data.
 	NameUsageAT             // Represents an archive with NameUsage data.
 )
+
+// Environment represents the environment type of a taxon.
+type Environment int
+
+// Constants for different environment types.
+const (
+	UnknownEnv  Environment = iota
+	Brackish                // Living in brackish water (mix of fresh and salt water).
+	Freshwater              // Living in freshwater.
+	Marine                  // Living in saltwater.
+	Terrestrial             // Living on land.
+)
+
+// envToString maps Environment values to their string representations.
+var envToString = map[Environment]string{
+	Brackish:    "brackish",
+	Freshwater:  "freshwater",
+	Marine:      "marine",
+	Terrestrial: "terrestrial",
+}
+
+// stringToEnv maps string representations to Environment values.
+var stringToEnv = func() map[string]Environment {
+	res := make(map[string]Environment)
+	for k, v := range envToString {
+		res[v] = k
+	}
+	return res
+}()
+
+// String returns the string representation of the environment.
+func (e Environment) String() string {
+	if res, ok := envToString[e]; ok {
+		return res
+	}
+	return ""
+}
+
+// NewEnvironment creates a new Environment from a string representation.
+func NewEnvironment(s string) Environment {
+	if res, ok := stringToEnv[s]; ok {
+		return res
+	}
+	return UnknownEnv
+}
+
+// Sex represents biological sex of a person or organism.
+type Sex int
+
+const (
+	UnknownSex Sex = iota
+	Female
+	Male
+	Hermaphrodite
+)
+
+// NewSex creates a new Sex object from a string
+func NewSex(s string) Sex {
+	s = strings.ToLower(s)
+	switch s {
+	case "1", "m", "male":
+		return Male
+	case "2", "f", "female":
+		return Female
+	case "3", "herm", "hermaphrodite":
+		return Hermaphrodite
+	default:
+		return UnknownSex
+	}
+}
+
+// String returns string representation of Sex object.
+func (s Sex) String() string {
+	switch s {
+	case Male:
+		return "male"
+	case Female:
+		return "female"
+	case Hermaphrodite:
+		return "hermaphrodite"
+	default:
+		return ""
+	}
+}
 
 // Gender represents the grammatical gender of a scientific name.
 type Gender int

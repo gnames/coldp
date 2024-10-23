@@ -45,7 +45,7 @@ type Taxon struct {
 	// TemporalRangeEnd is the end of the temporal range of this taxon.
 	TemporalRangeEnd GeoTime
 	// Environment is the environment where this taxon lives.
-	Environment string
+	Environment
 	// Species is the species name within this taxon.
 	Species string
 	// Section is the section name within this taxon.
@@ -108,7 +108,7 @@ func (t Taxon) Load(headers, data []string) (DataLoader, error) {
 	t.Extinct = ToBool(row["extinct"])
 	t.TemporalRangeStart = NewGeoTime(row["temporalrangestart"])
 	t.TemporalRangeEnd = NewGeoTime(row["temporalrangeend"])
-	t.Environment = row["environment"]
+	t.Environment = NewEnvironment(row["environment"])
 	t.Species = row["species"]
 	t.Section = row["section"]
 	t.Subgenus = row["subgenus"]
