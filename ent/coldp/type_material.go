@@ -15,7 +15,7 @@ type TypeMaterial struct {
 	Longitude           string
 	Altitude            string
 	Host                string
-	Sex                 Gender
+	Sex                 Sex
 	Date                string
 	Collector           string
 	AssociatedSequences string

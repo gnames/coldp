@@ -1,18 +1,27 @@
 package coldp
 
 type Synonym struct {
-	ID            string
-	TaxonID       string
-	SourceID      string
-	NameID        string
-	NamePhrase    string
+	// Optional unique identifier for the synonym. If given it should not clash
+	// with the taxon ids.
+	ID string
+	// TaxonID is the unique identifier for the related taxon.
+	TaxonID string
+	// SourceID is the identifier of the source from metadata.
+	SourceID string
+	// NameID is the identifier of the name associated with this taxon.
+	NameID string
+	// NamePhrase is an optional annotation attached to the name in this
+	// context (eg `sensu lato` etc).
+	NamePhrase string
+	// AccordingToID is ReferenceID of the source that this taxon is based on.
 	AccordingToID string
-	Status        NomStatus
-	ReferenceID   string
-	Link          string
-	Remarks       string
-	Modified      string
-	ModifiedBy    string
+
+	Status      TaxonomicStatus
+	ReferenceID string
+	Link        string
+	Remarks     string
+	Modified    string
+	ModifiedBy  string
 }
 
 func (s Synonym) Load(headers, data []string) (DataLoader, error) {

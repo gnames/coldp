@@ -1,5 +1,6 @@
 package coldp
 
+// Name contains information about a scientific name.
 type Name struct {
 	// ID is the unique identifier for this name.
 	ID string
