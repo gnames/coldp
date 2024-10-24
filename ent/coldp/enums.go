@@ -37,6 +37,22 @@ func NewNomCode(s string) NomCode {
 	}
 }
 
+var nomCodeToString = map[NomCode]string{
+	Bacterial:         "BACTERIAL",
+	Botanical:         "BOTANICAL",
+	Cultivars:         "CULTIVARS",
+	PhytoSociological: "PHYTOSOCIOLOGICAL",
+	Virus:             "VIRUS",
+	Zoological:        "ZOOLOGICAL",
+}
+
+func (nc NomCode) String() string {
+	if res, ok := nomCodeToString[nc]; ok {
+		return res
+	}
+	return ""
+}
+
 type NomRelType int
 
 const (
@@ -53,28 +69,29 @@ const (
 )
 
 var nomRelTypeToString = map[NomRelType]string{
-	SpellingCorrection: "spelling correction",
-	Basionym:           "basionym",
-	BasedOn:            "basedon",
-	ReplacementName:    "replacement name",
-	ConservedNRT:       "conserved",
-	LaterHomonym:       "later homonym",
-	Superfluous:        "superfluous",
-	Homotypic:          "homotypic",
-	Type:               "type",
+	SpellingCorrection: "SPELLING_CORRECTION",
+	Basionym:           "BASIONYM",
+	BasedOn:            "BASEDON",
+	ReplacementName:    "REPLACEMENT_NAME",
+	ConservedNRT:       "CONSERVED",
+	LaterHomonym:       "LATER_HOMONYM",
+	Superfluous:        "SUPERFLUOUS",
+	Homotypic:          "HOMOTYPIC",
+	Type:               "TYPE",
 }
 
 var stringToNomRelType = func() map[string]NomRelType {
 	res := make(map[string]NomRelType)
 	for k, v := range nomRelTypeToString {
 		v = strings.ReplaceAll(v, " ", "")
+		v = strings.ReplaceAll(v, "_", "")
 		res[v] = k
 	}
 	return res
 }()
 
 func NewNomRelType(s string) NomRelType {
-	s = strings.ToLower(s)
+	s = strings.ToUpper(s)
 	s = strings.ReplaceAll(s, " ", "")
 	s = strings.ReplaceAll(s, "_", "")
 	if res, ok := stringToNomRelType[s]; ok {
@@ -99,17 +116,31 @@ const (
 func NewNamePart(s string) NamePart {
 	s = strings.ToLower(s)
 	switch s {
-	case "1", "generic":
+	case "generic":
 		return GenericNP
-	case "2", "infrageneric":
+	case "infrageneric":
 		return InfragenericNP
-	case "3", "specific":
+	case "specific":
 		return SpecificNP
-	case "4", "infraspecific":
+	case "infraspecific":
 		return InfraspecificNP
 	default:
 		return UnknownNP
 	}
+}
+
+var namePartToString = map[NamePart]string{
+	GenericNP:       "GENERIC",
+	InfragenericNP:  "INFRAGENERIC",
+	SpecificNP:      "SPECIFIC",
+	InfraspecificNP: "INFRASPECIFIC",
+}
+
+func (np NamePart) String() string {
+	if res, ok := namePartToString[np]; ok {
+		return res
+	}
+	return ""
 }
 
 // ArchiveType provides type of CoLDP. Can be 'flat' or NameUsage, and
@@ -137,10 +168,10 @@ const (
 
 // envToString maps Environment values to their string representations.
 var envToString = map[Environment]string{
-	Brackish:    "brackish",
-	Freshwater:  "freshwater",
-	Marine:      "marine",
-	Terrestrial: "terrestrial",
+	Brackish:    "BRACKISH",
+	Freshwater:  "FRESHWATER",
+	Marine:      "MARINE",
+	Terrestrial: "TERRESTRIAL",
 }
 
 // stringToEnv maps string representations to Environment values.
@@ -162,6 +193,7 @@ func (e Environment) String() string {
 
 // NewEnvironment creates a new Environment from a string representation.
 func NewEnvironment(s string) Environment {
+	s = strings.ToUpper(s)
 	if res, ok := stringToEnv[s]; ok {
 		return res
 	}
@@ -197,11 +229,11 @@ func NewSex(s string) Sex {
 func (s Sex) String() string {
 	switch s {
 	case Male:
-		return "male"
+		return "MALE"
 	case Female:
-		return "female"
+		return "FEMALE"
 	case Hermaphrodite:
-		return "hermaphrodite"
+		return "HERMAPHRODITE"
 	default:
 		return ""
 	}
@@ -221,12 +253,13 @@ const (
 // NewGender creates a new Gender from a string representation.
 func NewGender(s string) Gender {
 	s = strings.ToLower(s)
+	s = strings.TrimRight(s, ".")
 	switch s {
 	case "1", "m", "masculine":
 		return Masculine
 	case "2", "f", "feminine":
 		return Feminine
-	case "3", "n", "neutral":
+	case "3", "n", "neut", "neutral":
 		return Neutral
 	default:
 		return UnknownG
@@ -237,11 +270,11 @@ func NewGender(s string) Gender {
 func (g Gender) String() string {
 	switch g {
 	case Masculine:
-		return "m"
+		return "MASCULINE"
 	case Feminine:
-		return "f"
+		return "FEMININE"
 	case Neutral:
-		return "neut"
+		return "NEUTRAL"
 	default:
 		return ""
 	}
