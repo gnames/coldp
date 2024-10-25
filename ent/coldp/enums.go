@@ -390,3 +390,87 @@ func NewDataType(s string) DataType {
 	}
 	return UnkownDT
 }
+
+type DistrStatus int
+
+const (
+	UnknownDistSt DistrStatus = iota
+	Native
+	Domesticated
+	Alien
+	Uncertain
+)
+
+var distrStatusToString = map[DistrStatus]string{
+	Native:       "NATIVE",
+	Domesticated: "DOMESTICATED",
+	Alien:        "ALIEN",
+	Uncertain:    "UNCERTAIN",
+}
+
+var stringToDistrStatus = func() map[string]DistrStatus {
+	res := make(map[string]DistrStatus)
+	for k, v := range distrStatusToString {
+		res[v] = k
+	}
+	return res
+}()
+
+func (ds DistrStatus) String() string {
+	if res, ok := distrStatusToString[ds]; ok {
+		return res
+	}
+	return ""
+}
+
+func NewDistrStatus(s string) DistrStatus {
+	s = strings.ToUpper(s)
+	if res, ok := stringToDistrStatus[s]; ok {
+		return res
+	}
+	return UnknownDistSt
+}
+
+type TaxonomicStatus int
+
+const (
+	UnknownTaxSt TaxonomicStatus = iota
+	AcceptedTS
+	ProvisionallyAcceptedTS
+	SynonymTS
+	AmbiguousSynonymTS
+	MisappliedTS
+	BareNameTS
+)
+
+var taxStatToString = map[TaxonomicStatus]string{
+	AcceptedTS:              "ACCEPTED",
+	ProvisionallyAcceptedTS: "PROVISIONALLY_ACCEPTED",
+	SynonymTS:               "SYNONYM",
+	AmbiguousSynonymTS:      "AMBIGUOUS_SYNONYM",
+	MisappliedTS:            "MISAPPLIED",
+	BareNameTS:              "BARE_NAME",
+}
+
+var stringToTaxStat = func() map[string]TaxonomicStatus {
+	res := make(map[string]TaxonomicStatus)
+	for k, v := range taxStatToString {
+		res[v] = k
+	}
+	return res
+}()
+
+func (ts TaxonomicStatus) String() string {
+	if res, ok := taxStatToString[ts]; ok {
+		return res
+	}
+	return ""
+}
+
+func NewTaxonomicStatus(s string) TaxonomicStatus {
+	s = strings.ToUpper(s)
+	if res, ok := stringToTaxStat[s]; ok {
+		return res
+	}
+	return UnknownTaxSt
+}

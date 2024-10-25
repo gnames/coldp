@@ -1,24 +1,41 @@
 package coldp
 
+// Media attached to a taxon.
 type Media struct {
-	TaxonID  string
+	// TaxonID is a reference to a taxon.
+	TaxonID string
+	// SourceID is a reference to source from metadata.
 	SourceID string
-	Url      string
-	Type     string
-	Format   string
-	Title    string
-	Created  string
-	Creator  string
-	License  string
-	Link     string
-	Remarks  string
+	// URL to the media source.
+	URL string
+	// Type is MIME type (eg image, image/jpeg, audio)
+	Type string
+	// Format of the media file (NOT IN DOCS).
+	Format string
+	// Title of the media item.
+	Title string
+	// Creation date
+	Created string
+	// Creator name
+	Creator string
+	// License of the media file.
+	License string
+	// URL to the page from which media item came from.
+	Link string
+	// Remarks about the media.
+	Remarks string
+	// Modified is a timestamp.
+	Modified string
+	// ModifiedBy is the person who created the data object.
+	ModifiedBy string
 }
 
+// Load populates the Media object from a row of data.
 func (m Media) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	m.TaxonID = row["taxon_id"]
 	m.SourceID = row["source_id"]
-	m.Url = row["url"]
+	m.URL = row["url"]
 	m.Type = row["type"]
 	m.Format = row["format"]
 	m.Title = row["title"]
