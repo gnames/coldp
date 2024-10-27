@@ -7,7 +7,7 @@ type NomCode int
 
 // Constants for different nomenclatural codes.
 const (
-	UnknownCode       NomCode = iota
+	UnknownNomCode    NomCode = iota
 	Bacterial                 // Bacteriological Code
 	Botanical                 // Botanical Code
 	Cultivars                 // Cultivated Plant Code
@@ -33,7 +33,7 @@ func NewNomCode(s string) NomCode {
 	case "6", "zoological", "iczn":
 		return Zoological
 	default:
-		return UnknownCode
+		return UnknownNomCode
 	}
 }
 
@@ -100,6 +100,13 @@ func NewNomRelType(s string) NomRelType {
 	return UnknownNomRelType
 }
 
+func (n NomRelType) String() string {
+	if res, ok := nomRelTypeToString[n]; ok {
+		return res
+	}
+	return ""
+}
+
 // NamePart represents the part of a scientific name.
 type NamePart int
 
@@ -114,15 +121,15 @@ const (
 
 // NewNamePart creates a new NamePart from a string representation.
 func NewNamePart(s string) NamePart {
-	s = strings.ToLower(s)
+	s = strings.ToUpper(s)
 	switch s {
-	case "generic":
+	case "GENERIC":
 		return GenericNP
-	case "infrageneric":
+	case "INFRAGENERIC":
 		return InfragenericNP
-	case "specific":
+	case "SPECIFIC":
 		return SpecificNP
-	case "infraspecific":
+	case "INFRASPECIFIC":
 		return InfraspecificNP
 	default:
 		return UnknownNP
@@ -212,13 +219,14 @@ const (
 
 // NewSex creates a new Sex object from a string
 func NewSex(s string) Sex {
-	s = strings.ToLower(s)
+	s = strings.ToUpper(s)
+	s = strings.TrimRight(s, ".")
 	switch s {
-	case "1", "m", "male":
+	case "M", "MALE":
 		return Male
-	case "2", "f", "female":
+	case "F", "FEMALE":
 		return Female
-	case "3", "herm", "hermaphrodite":
+	case "HERM", "HERMAPHRODITE":
 		return Hermaphrodite
 	default:
 		return UnknownSex
@@ -252,14 +260,14 @@ const (
 
 // NewGender creates a new Gender from a string representation.
 func NewGender(s string) Gender {
-	s = strings.ToLower(s)
+	s = strings.ToUpper(s)
 	s = strings.TrimRight(s, ".")
 	switch s {
-	case "1", "m", "masculine":
+	case "M", "MASCULINE":
 		return Masculine
-	case "2", "f", "feminine":
+	case "F", "FEMININE":
 		return Feminine
-	case "3", "n", "neut", "neutral":
+	case "N", "NEUT", "NEUTRAL":
 		return Neutral
 	default:
 		return UnknownG
