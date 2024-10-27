@@ -4,91 +4,131 @@ package coldp
 type Taxon struct {
 	// ID is the unique identifier for this taxon.
 	ID string
+
 	// AlternativeID has alternative identifiers for this taxon.
 	// either URI/URN/URL, or scope:id, separated by ','
 	AlternativeID string
+
 	// SourceID is the identifier of the source from metadata.
 	SourceID string
+
 	// ParentID is the identifier of the parent taxon.
 	ParentID string
+
 	// Ordinal is the used to sort siblings of the same ParentID.
 	Ordinal int
+
 	// BranchLength is the branch length of this taxon in a phylogenetic tree.
 	BranchLength string
+
 	// NameID is the identifier of the name associated with this taxon.
 	NameID string
+
 	// NamePhrase is an optional annotation attached to the name in this
 	// context (eg `sensu lato` etc).
 	NamePhrase string
+
 	// AccordingToID is ReferenceID of the source that this taxon is based on.
 	AccordingToID string
+
 	// AccordingToPage is the page number in the source where this taxon is
 	// determined.
 	AccordingToPage string
+
 	// AccordingToPageLink is a link to the page where this taxon is determined.
 	AccordingToPageLink string
+
 	// Scrutinizer is the name of the person who scrutinized this taxon.
 	Scrutinizer string
+
 	// ScrutinizerID is the identifier of the scrutinizer ORCID if available.
 	ScrutinizerID string
+
 	// ScrutinizerDate is the date of the scrutiny.
 	ScrutinizerDate string
+
 	// Provisional indicates taxon is only provisionaly accepted.
 	Provisional bool
+
 	// ReferenceID is the comma-separated list of references that support
 	// this taxon concept.
 	ReferenceID string
+
 	// Extinct indicates whether this taxon is extinct.
 	Extinct bool
+
 	// TemporalRangeStart is the start of the temporal range of this taxon.
 	TemporalRangeStart GeoTime
+
 	// TemporalRangeEnd is the end of the temporal range of this taxon.
 	TemporalRangeEnd GeoTime
-	// Environment is the environment where this taxon lives.
-	Environment
+
+	// Environment is the environments where this taxon lives. Uses Environment
+	// controlled vocabulary (comma-separated).
+	Environment string
+
 	// Species is the species name within this taxon.
 	Species string
+
 	// Section is the section name within this taxon.
 	Section string
+
 	// Subgenus is the subgenus name within this taxon.
 	Subgenus string
+
 	// Genus is the genus name within this taxon.
 	Genus string
+
 	// Subtribe is the subtribe name within this taxon.
 	Subtribe string
+
 	// Tribe is the tribe name within this taxon.
 	Tribe string
+
 	// Subfamily is the subfamily name within this taxon.
 	Subfamily string
+
 	// Family is the family name within this taxon.
 	Family string
+
 	// Superfamily is the superfamily name within this taxon.
 	Superfamily string
+
 	// Suborder is the suborder name within this taxon.
 	Suborder string
+
 	// Order is the order name within this taxon.
 	Order string
+
 	// Subclass is the subclass name within this taxon.
 	Subclass string
+
 	// Class is the class name within this taxon.
 	Class string
+
 	// Subphylum is the subphylum name within this taxon.
 	Subphylum string
+
 	// Phylum is the phylum name within this taxon.
 	Phylum string
+
 	// Kingdom is the kingdom name within this taxon.
 	Kingdom string
+
 	// Link is a link to more information about this taxon.
 	Link string
+
 	// Remarks are any remarks about this taxon.
 	Remarks string
+
 	// Modified is the date when this taxon was last modified.
 	Modified string
+
 	// ModifiedBy is the user who last modified this taxon.
 	ModifiedBy string
 }
 
-// Load populates the Taxon data from a row of data.
+// Load populates the Taxon object from a row of data.
 func (t Taxon) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	t.ID = row["id"]
@@ -108,7 +148,7 @@ func (t Taxon) Load(headers, data []string) (DataLoader, error) {
 	t.Extinct = ToBool(row["extinct"])
 	t.TemporalRangeStart = NewGeoTime(row["temporalrangestart"])
 	t.TemporalRangeEnd = NewGeoTime(row["temporalrangeend"])
-	t.Environment = NewEnvironment(row["environment"])
+	t.Environment = row["environment"]
 	t.Species = row["species"]
 	t.Section = row["section"]
 	t.Subgenus = row["subgenus"]

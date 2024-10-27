@@ -474,3 +474,85 @@ func NewTaxonomicStatus(s string) TaxonomicStatus {
 	}
 	return UnknownTaxSt
 }
+
+type EstimateType int
+
+const (
+	UnknownET EstimateType = iota
+	SpeciesExtinct
+	SpeciesLiving
+	EstimatedSpecies
+)
+
+var estTypeToString = map[EstimateType]string{
+	SpeciesExtinct:   "SPECIES_EXTINCT",
+	SpeciesLiving:    "SPECIES_LIVING",
+	EstimatedSpecies: "ESTIMATED_SPECIES",
+}
+
+var stringToEstType = func() map[string]EstimateType {
+	res := make(map[string]EstimateType)
+	for k, v := range estTypeToString {
+		res[v] = k
+	}
+	return res
+}()
+
+func (et EstimateType) String() string {
+	if res, ok := estTypeToString[et]; ok {
+		return res
+	}
+	return ""
+}
+
+func NewEstimateType(s string) EstimateType {
+	s = strings.ToUpper(s)
+	s = strings.ReplaceAll(s, " ", "_")
+	if res, ok := stringToEstType[s]; ok {
+		return res
+	}
+	return UnknownET
+}
+
+type TaxonConceptRelType int
+
+const (
+	UnknownTCT TaxonConceptRelType = iota
+	Equals
+	Includes
+	IncludedIn
+	Overlaps
+	Excludes
+)
+
+var tcRelTypeToString = map[TaxonConceptRelType]string{
+	Equals:     "EQUALS",
+	Includes:   "INCLUDES",
+	IncludedIn: "INCLUDED_IN",
+	Overlaps:   "OVERLAPS",
+	Excludes:   "EXCLUDES",
+}
+
+var stringToTCRelType = func() map[string]TaxonConceptRelType {
+	res := make(map[string]TaxonConceptRelType)
+	for k, v := range tcRelTypeToString {
+		res[v] = k
+	}
+	return res
+}()
+
+func (t TaxonConceptRelType) String() string {
+	if res, ok := tcRelTypeToString[t]; ok {
+		return res
+	}
+	return ""
+}
+
+func NewTaxonConceptRelType(s string) TaxonConceptRelType {
+	s = strings.ToUpper(s)
+	s = strings.ReplaceAll(s, " ", "_")
+	if res, ok := stringToTCRelType[s]; ok {
+		return res
+	}
+	return UnknownTCT
+}

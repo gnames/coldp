@@ -2,10 +2,10 @@ package coldp
 
 import "strings"
 
-type Gazetteer int
+type GazetteerEnt int
 
 const (
-	UnknownGz Gazetteer = iota
+	UnknownGz GazetteerEnt = iota
 	TDWG
 	ISO
 	FAO
@@ -16,7 +16,7 @@ const (
 	TextGz
 )
 
-var gazetteerToString = map[Gazetteer]string{
+var gazetteerToString = map[GazetteerEnt]string{
 	TDWG:      "TDWG",
 	ISO:       "ISO",
 	FAO:       "FAO",
@@ -27,22 +27,22 @@ var gazetteerToString = map[Gazetteer]string{
 	TextGz:    "TEXT",
 }
 
-var stringToGazetteer = func() map[string]Gazetteer {
-	res := make(map[string]Gazetteer)
+var stringToGazetteer = func() map[string]GazetteerEnt {
+	res := make(map[string]GazetteerEnt)
 	for k, v := range gazetteerToString {
 		res[v] = k
 	}
 	return res
 }()
 
-func (g Gazetteer) String() string {
+func (g GazetteerEnt) String() string {
 	if res, ok := gazetteerToString[g]; ok {
 		return res
 	}
 	return ""
 }
 
-func NewGazetteer(s string) Gazetteer {
+func NewGazetteerEnt(s string) GazetteerEnt {
 	s = strings.ToUpper(s)
 	if res, ok := stringToGazetteer[s]; ok {
 		return res
