@@ -1,7 +1,10 @@
 package arcio
 
 import (
+	"encoding/json"
 	"os"
+	"path/filepath"
+	"strings"
 
 	"github.com/gnames/coldp/ent/coldp"
 	"gopkg.in/yaml.v3"
@@ -24,7 +27,11 @@ func (a *arcio) Meta() (res *coldp.Meta, err error) {
 	}
 
 	var meta coldp.Meta
-	err = yaml.Unmarshal(bs, &meta)
+	if isJSON(a.metaPath) {
+		err = json.Unmarshal(bs, &meta)
+	} else {
+		err = yaml.Unmarshal(bs, &meta)
+	}
 	if err != nil {
 		return nil, err
 	}
@@ -32,4 +39,13 @@ func (a *arcio) Meta() (res *coldp.Meta, err error) {
 	a.meta = &meta
 
 	return a.meta, nil
+}
+
+func isJSON(path string) bool {
+	ext := filepath.Ext(path)
+	ext = strings.ToLower(ext)
+	if ext == ".json" {
+		return true
+	}
+	return false
 }

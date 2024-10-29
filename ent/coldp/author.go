@@ -1,7 +1,7 @@
 package coldp
 
-// Autor represents an author of a scientific name or publication.
-type Autor struct {
+// Author represents an author of a scientific name or publication.
+type Author struct {
 	// ID is the unique identifier for this author.
 	ID string
 	// SourceID is the identifier of the source database for this author.
@@ -45,27 +45,27 @@ type Autor struct {
 }
 
 // Load populates the Author data from a row of data.
-func (a Autor) Load(headers, data []string) (DataLoader, error) {
+func (a Author) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	a.ID = row["id"]
-	a.SourceID = row["source_id"]
-	a.AlternativeID = row["alternative_id"]
+	a.SourceID = row["sourceid"]
+	a.AlternativeID = row["alternativeid"]
 	a.Given = row["given"]
 	a.Family = row["family"]
 	a.Suffix = row["suffix"]
-	a.AbbreviationBotany = row["abbreviation_botany"]
-	a.AlternativeNames = row["alternative_names"]
+	a.AbbreviationBotany = row["abbreviationbotany"]
+	a.AlternativeNames = row["alternativenames"]
 	a.Sex = NewSex(row["sex"])
 	a.Country = row["country"]
 	a.Birth = row["birth"]
-	a.BirthPlace = row["birth_place"]
+	a.BirthPlace = row["birthplace"]
 	a.Death = row["death"]
 	a.Affiliation = row["affiliation"]
 	a.Interest = row["interest"]
-	a.ReferenceID = row["reference_id"]
+	a.ReferenceID = row["referenceid"]
 	a.Link = row["link"]
 	a.Remarks = row["remarks"]
 	a.Modified = row["modified"]
-	a.ModifiedBy = row["modified_by"]
+	a.ModifiedBy = row["modifiedby"]
 	return a, warning
 }

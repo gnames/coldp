@@ -41,15 +41,15 @@ type Distribution struct {
 
 func (d Distribution) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	d.TaxonID = row["taxon_id"]
-	d.SourceID = row["source_id"]
+	d.TaxonID = row["taxonid"]
+	d.SourceID = row["sourceid"]
 	d.Area = row["area"]
-	d.AreaID = row["area_id"]
+	d.AreaID = row["areaid"]
 	d.Gazetteer = NewGazetteerEnt(row["gazetteer"])
 	d.Status = NewDistrStatus(row["status"])
-	d.ReferenceID = row["reference_id"]
+	d.ReferenceID = row["referenceid"]
 	d.Remarks = row["remarks"]
 	d.Modified = row["modified"]
-	d.ModifiedBy = row["modified_by"]
+	d.ModifiedBy = row["modifiedby"]
 	return d, warning
 }

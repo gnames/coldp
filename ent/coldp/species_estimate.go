@@ -30,11 +30,11 @@ type SpeciesEstimate struct {
 
 func (s SpeciesEstimate) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	s.TaxonID = row["taxon_id"]
-	s.SourceID = row["source_id"]
+	s.TaxonID = row["taxonid"]
+	s.SourceID = row["sourceid"]
 	s.Estimate = ToInt(row["estimate"])
 	s.Type = NewEstimateType(row["type"])
-	s.ReferenceID = row["reference_id"]
+	s.ReferenceID = row["referenceid"]
 	s.Remarks = row["remarks"]
 	return s, warning
 }

@@ -78,13 +78,13 @@ type TypeMaterial struct {
 func (t TypeMaterial) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	t.ID = row["id"]
-	t.SourceID = row["source_id"]
-	t.NameID = row["name_id"]
+	t.SourceID = row["sourceid"]
+	t.NameID = row["nameid"]
 	t.Citation = row["citation"]
 	t.Status = NewTypeStatus(row["status"])
-	t.InstitutionCode = row["institution_code"]
-	t.CatalogNumber = row["catalog_number"]
-	t.ReferenceID = row["reference_id"]
+	t.InstitutionCode = row["institutioncode"]
+	t.CatalogNumber = row["catalognumber"]
+	t.ReferenceID = row["referenceid"]
 	t.Locality = row["locality"]
 	t.Country = row["country"]
 	t.Latitude = row["latitude"]
@@ -94,10 +94,10 @@ func (t TypeMaterial) Load(headers, data []string) (DataLoader, error) {
 	t.Sex = NewSex(row["sex"])
 	t.Date = row["date"]
 	t.Collector = row["collector"]
-	t.AssociatedSequences = row["associated_sequences"]
+	t.AssociatedSequences = row["associatedsequences"]
 	t.Link = row["link"]
 	t.Remarks = row["remarks"]
 	t.Modified = row["modified"]
-	t.ModifiedBy = row["modified_by"]
+	t.ModifiedBy = row["modifiedby"]
 	return t, warning
 }

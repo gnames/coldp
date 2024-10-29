@@ -23,11 +23,11 @@ type Treatment struct {
 // Load populates the Treatment object from a row of data.
 func (t Treatment) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	t.TaxonID = row["taxon_id"]
-	t.SourceID = row["source_id"]
+	t.TaxonID = row["taxonid"]
+	t.SourceID = row["sourceid"]
 	t.Document = row["document"]
 	t.Format = row["format"]
 	t.Modified = row["modified"]
-	t.ModifiedBy = row["modified_by"]
+	t.ModifiedBy = row["modifiedby"]
 	return t, warning
 }

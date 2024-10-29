@@ -27,11 +27,11 @@ type TaxonConceptRelation struct {
 
 func (t TaxonConceptRelation) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	t.TaxonID = row["taxon_id"]
-	t.RelatedTaxonID = row["related_taxon_id"]
-	t.SourceID = row["source_id"]
+	t.TaxonID = row["taxonid"]
+	t.RelatedTaxonID = row["relatedtaxonid"]
+	t.SourceID = row["sourceid"]
 	t.Type = NewTaxonConceptRelType(row["type"])
-	t.ReferenceID = row["reference_id"]
+	t.ReferenceID = row["referenceid"]
 	t.Remarks = row["remarks"]
 	return t, warning
 }

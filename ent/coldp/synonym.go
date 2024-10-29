@@ -42,19 +42,19 @@ type Synonym struct {
 }
 
 // Load populates a Synonym object from a row of data.
-func (s *Synonym) Load(headers, data []string) (DataLoader, error) {
+func (s Synonym) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	s.ID = row["id"]
 	s.TaxonID = row["taxonid"]
-	s.SourceID = row["source_id"]
+	s.SourceID = row["sourceid"]
 	s.NameID = row["nameid"]
-	s.NamePhrase = row["name_phrase"]
+	s.NamePhrase = row["namephrase"]
 	s.AccordingToID = row["accordingtoid"]
 	s.Status = NewTaxonomicStatus(row["status"])
 	s.ReferenceID = row["referenceid"]
 	s.Link = row["link"]
 	s.Remarks = row["remarks"]
 	s.Modified = row["modified"]
-	s.ModifiedBy = row["modified_by"]
+	s.ModifiedBy = row["modifiedby"]
 	return s, warning
 }

@@ -38,13 +38,13 @@ type NameRelation struct {
 // Load populates a NameRelation object with data from a parsed row.
 func (n NameRelation) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	n.NameID = row["name_id"]
-	n.RelatedNameID = row["related_name_id"]
-	n.SourceID = row["source_id"]
+	n.NameID = row["nameid"]
+	n.RelatedNameID = row["relatednameid"]
+	n.SourceID = row["sourceid"]
 	n.Type = NewNomRelType(row["type"])
-	n.ReferenceID = row["reference_id"]
+	n.ReferenceID = row["referenceid"]
 	n.Remarks = row["remarks"]
 	n.Modified = row["modified"]
-	n.ModifiedBy = row["modified_by"]
+	n.ModifiedBy = row["modifiedby"]
 	return n, warning
 }

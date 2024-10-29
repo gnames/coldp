@@ -118,6 +118,8 @@ func RowToMap(headers, row []string) (map[string]string, error) {
 	res := make(map[string]string)
 	for i := range headers {
 		if i < len(row) { // Prevent index out of range
+			fld := strings.ToLower(headers[i])
+			fld = strings.ReplaceAll(fld, "_", "")
 			res[headers[i]] = row[i]
 		}
 	}

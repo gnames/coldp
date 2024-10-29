@@ -32,12 +32,12 @@ type SpeciesInteraction struct {
 
 func (s SpeciesInteraction) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	s.TaxonID = row["taxon_id"]
-	s.RelatedTaxonID = row["related_taxon_id"]
-	s.SourceID = row["source_id"]
-	s.RelatedTaxonScientificName = row["related_taxon_scientific_name"]
+	s.TaxonID = row["taxonid"]
+	s.RelatedTaxonID = row["relatedtaxonid"]
+	s.SourceID = row["sourceid"]
+	s.RelatedTaxonScientificName = row["relatedtaxonscientificname"]
 	s.Type = NewSpInteractionType(row["type"])
-	s.ReferenceID = row["reference_id"]
+	s.ReferenceID = row["referenceid"]
 	s.Remarks = row["remarks"]
 	return s, warning
 }

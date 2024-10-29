@@ -43,8 +43,8 @@ type Name struct {
 	// InfraspecificEpithet of the name.
 	InfraspecificEpithet string
 
-	// Cultivar_epithet is the cultivar epithet.
-	Cultivar_epithet string
+	// CultivarEpithet is the cultivar epithet.
+	CultivarEpithet string
 
 	// Notho is the nothotaxon part of the name.
 	Notho NamePart
@@ -141,42 +141,42 @@ type Name struct {
 func (n Name) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	n.ID = row["id"]
-	n.AlternativeID = row["alternative_id"]
-	n.SourceID = row["source_id"]
-	n.BasionymID = row["basionym_id"] // becomes NameRelation
-	n.ScientificName = row["scientific_name"]
+	n.AlternativeID = row["alternativeid"]
+	n.SourceID = row["sourceid"]
+	n.BasionymID = row["basionymid"] // becomes NameRelation
+	n.ScientificName = row["scientificname"]
 	n.Authorship = row["authorship"] // verbatim author string
 	n.Rank = NewRank(row["rank"])
 	n.Uninomial = row["uninomial"]
 	n.Genus = row["genus"]
-	n.InfragenericEpithet = row["infrageneric_epithet"]
-	n.SpecificEpithet = row["specific_epithet"]
-	n.InfraspecificEpithet = row["infraspecific_epithet"]
-	n.Cultivar_epithet = row["cultivar_epithet"]
+	n.InfragenericEpithet = row["infragenericepithet"]
+	n.SpecificEpithet = row["specificepithet"]
+	n.InfraspecificEpithet = row["infraspecificepithet"]
+	n.CultivarEpithet = row["cultivarepithet"]
 	n.Notho = NewNamePart(row["notho"])
-	n.OriginalSpelling = ToBool(row["original_spelling"])
-	n.CombinationAuthorship = row["combination_authorship"]
-	n.CombinationAuthorshipID = row["combination_authorship_id"]
-	n.CombinationExAuthorship = row["combination_ex_authorship"]
-	n.CombinationExAuthorshipID = row["combination_ex_authorship_id"]
-	n.CombinationAuthorshipYear = row["combination_authorship_year"]
-	n.BasionymAuthorship = row["basionym_authorship"]
-	n.BasionymAuthorshipID = row["basionym_authorship_id"]
-	n.BasionymExAuthorship = row["basionym_ex_authorship"]
-	n.BasionymExAuthorshipID = row["basionym_ex_authorship_id"]
-	n.BasionymAuthorshipYear = row["basionym_authorship_year"]
+	n.OriginalSpelling = ToBool(row["originalspelling"])
+	n.CombinationAuthorship = row["combinationauthorship"]
+	n.CombinationAuthorshipID = row["combinationauthorshipid"]
+	n.CombinationExAuthorship = row["combinationexauthorship"]
+	n.CombinationExAuthorshipID = row["combinationexauthorshipid"]
+	n.CombinationAuthorshipYear = row["combinationauthorshipyear"]
+	n.BasionymAuthorship = row["basionymauthorship"]
+	n.BasionymAuthorshipID = row["basionymauthorshipid"]
+	n.BasionymExAuthorship = row["basionymexauthorship"]
+	n.BasionymExAuthorshipID = row["basionymexauthorshipid"]
+	n.BasionymAuthorshipYear = row["basionymauthorshipyear"]
 	n.Code = NewNomCode(row["code"])
 	n.Status = NewNomStatus(row["status"])
-	n.ReferenceID = row["reference_id"]
-	n.PublishedInYear = row["published_in_year"]
-	n.PublishedInPage = row["published_in_page"]
-	n.PublishedInPageLink = row["published_in_page_link"]
+	n.ReferenceID = row["referenceid"]
+	n.PublishedInYear = row["publishedinyear"]
+	n.PublishedInPage = row["publishedinpage"]
+	n.PublishedInPageLink = row["publishedinpagelink"]
 	n.Gender = NewGender(row["gender"])
-	n.GenderAgreement = ToBool(row["gender_agreement"])
+	n.GenderAgreement = ToBool(row["genderagreement"])
 	n.Etymology = row["etymology"]
 	n.Link = row["link"]
 	n.Remarks = row["remarks"]
 	n.Modified = row["modified"]
-	n.ModifiedBy = row["modified_by"]
+	n.ModifiedBy = row["modifiedby"]
 	return n, warning
 }

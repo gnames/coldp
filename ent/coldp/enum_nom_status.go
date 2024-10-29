@@ -56,92 +56,21 @@ func NewNomStatus(s string) NomStatus {
 	}
 }
 
-// StringByCode returns the string representation of the nomenclatural status
-// according to the provided nomenclatural code.
-func (n NomStatus) StringByCode(c NomCode) string {
-	switch n {
-	case Established:
-		switch c {
-		case Botanical:
-			return "nomen validum"
-		case Zoological:
-			return "available"
-		default:
-			return "established"
-		}
+var nomStatusToString = map[NomStatus]string{
+	Established:    "ESTABLISHED",
+	NotEstablished: "NOT_ESTABLISHED",
+	Acceptable:     "ACCEPTABLE",
+	Unacceptable:   "UNACCEPTABLE",
+	Conserved:      "CONSERVED",
+	Rejected:       "REJECTED",
+	Doubtful:       "DOUBTFUL",
+	Manuscript:     "MANUSCRIPT",
+	Chresonym:      "CHRESONYM",
+}
 
-	case NotEstablished:
-		switch c {
-		case Botanical:
-			return "nomen invalidum"
-		case Zoological:
-			return "unavailable"
-		default:
-			return "not established"
-		}
-
-	case Acceptable:
-		switch c {
-		case Botanical:
-			return "nomen legitimum"
-		case Zoological:
-			return "potentially valid"
-		default:
-			return "acceptable"
-		}
-
-	case Unacceptable:
-		switch c {
-		case Botanical:
-			return "nomen illegitimum"
-		case Zoological:
-			return "objectively invalid"
-		default:
-			return "unacceptable"
-		}
-
-	case Conserved:
-		switch c {
-		case Botanical:
-			return "nomen conservandum"
-		case Zoological:
-			return "conserved name"
-		default:
-			return "conserved"
-		}
-
-	case Rejected:
-		switch c {
-		case Botanical:
-			return "nomen rejiciendum"
-		case Zoological:
-			return "rejected"
-		default:
-			return "rejected"
-		}
-
-	case Doubtful:
-		switch c {
-		case Botanical:
-			return "nomen dubium"
-		case Zoological:
-			return "doubtful"
-		default:
-			return "doubtful"
-		}
-
-	case Manuscript:
-		switch c {
-		case Botanical:
-			return "manuscript name"
-		case Zoological:
-			return "manuscript name"
-		default:
-			return "manuscript"
-		}
-
-	case Chresonym:
-		return "chresonym"
+func (n NomStatus) String() string {
+	if res, ok := nomStatusToString[n]; ok {
+		return res
 	}
-	return "missing status, fixme"
+	return ""
 }

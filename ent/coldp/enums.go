@@ -314,21 +314,21 @@ type DataType int
 const (
 	UnkownDT DataType = iota
 	AuthorDT
-	NameRelationDT
-	TaxonDT
-	SynonymDT
-	NameUsageDT
-	NameDT
-	TaxonPropertyDT
-	TaxonConceptRelationDT
-	SpeciesInteractionDT
-	SpeciesEstimateDT
-	ReferenceDT
-	TypeMaterialDT
 	DistributionDT
 	MediaDT
-	VernacularNameDT
+	NameDT
+	NameRelationDT
+	NameUsageDT
+	ReferenceDT
+	SpeciesEstimateDT
+	SpeciesInteractionDT
+	SynonymDT
+	TaxonConceptRelationDT
+	TaxonDT
+	TaxonPropertyDT
 	TreatmentDT
+	TypeMaterialDT
+	VernacularNameDT
 )
 
 // FileFormats returns a list of supported file formats for a given DataType.

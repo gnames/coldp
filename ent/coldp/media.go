@@ -45,8 +45,8 @@ type Media struct {
 // Load populates the Media object from a row of data.
 func (m Media) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	m.TaxonID = row["taxon_id"]
-	m.SourceID = row["source_id"]
+	m.TaxonID = row["taxonid"]
+	m.SourceID = row["sourceid"]
 	m.URL = row["url"]
 	m.Type = row["type"]
 	m.Format = row["format"]
@@ -57,6 +57,6 @@ func (m Media) Load(headers, data []string) (DataLoader, error) {
 	m.Link = row["link"]
 	m.Remarks = row["remarks"]
 	m.Modified = row["modified"]
-	m.ModifiedBy = row["modified_by"]
+	m.ModifiedBy = row["modifiedby"]
 	return m, warning
 }

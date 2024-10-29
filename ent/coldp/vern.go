@@ -48,7 +48,7 @@ type Vernacular struct {
 func (v Vernacular) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	v.TaxonID = row["taxonid"]
-	v.SourceID = row["source_id"]
+	v.SourceID = row["sourceid"]
 	v.Name = row["name"]
 	v.Transliteration = row["transliteration"]
 	v.Language = row["language"]

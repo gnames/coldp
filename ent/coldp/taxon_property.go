@@ -36,15 +36,15 @@ type TaxonProperty struct {
 
 func (t TaxonProperty) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	t.TaxonID = row["taxon_id"]
-	t.SourceID = row["source_id"]
+	t.TaxonID = row["taxonid"]
+	t.SourceID = row["sourceid"]
 	t.Property = row["property"]
 	t.Value = row["value"]
-	t.ReferenceID = row["reference_id"]
+	t.ReferenceID = row["referenceid"]
 	t.Page = row["page"]
 	t.Ordinal = ToInt(row["ordinal"])
 	t.Remarks = row["remarks"]
 	t.Modified = row["modified"]
-	t.ModifiedBy = row["modified_by"]
+	t.ModifiedBy = row["modifiedby"]
 	return t, warning
 }
