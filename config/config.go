@@ -22,6 +22,10 @@ type Config struct {
 	// BadRow sets how to process rows with wrong number of fields in CSV
 	// files.
 	BadRow gnfmt.BadRow
+
+	// WithQuotes sets CSV reader to use `"` as quote. When it is true,
+	// RFC-based CSV reader is used, even if delimiter is tab or pipe.
+	WithQuotes bool
 }
 
 // Option is a function type that allows to standardize how options to
@@ -38,6 +42,12 @@ func OptCacheDir(s string) Option {
 func OptBadRow(br gnfmt.BadRow) Option {
 	return func(c *Config) {
 		c.BadRow = br
+	}
+}
+
+func OptWithQuotes(b bool) Option {
+	return func(c *Config) {
+		c.WithQuotes = b
 	}
 }
 

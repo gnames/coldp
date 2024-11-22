@@ -25,6 +25,7 @@ func Read[T DataLoader](
 	opts := []csvConfig.Option{
 		csvConfig.OptPath(path),
 		csvConfig.OptBadRowMode(cfg.BadRow),
+		csvConfig.OptWithQuotes(cfg.WithQuotes),
 	}
 	csvCfg, err := csvConfig.New(opts...)
 	headers := gnlib.Map(csvCfg.Headers, func(s string) string {
