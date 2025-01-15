@@ -31,7 +31,7 @@ func (a *arcio) DirInfo() error {
 			continue
 		}
 
-		dt = coldp.NewDataType(file)
+		dt = coldp.NewDataType(file, ext)
 		if dt != coldp.UnkownDT {
 			a.dataPaths[dt] = v
 		}
@@ -44,8 +44,8 @@ func (a *arcio) DirInfo() error {
 func getDataDir(paths []string) string {
 	dirs := make(map[string]int)
 	for _, v := range paths {
-		dir, file, _ := gnsys.SplitPath(v)
-		if coldp.NewDataType(file) != coldp.UnkownDT {
+		dir, file, ext := gnsys.SplitPath(v)
+		if coldp.NewDataType(file, ext) != coldp.UnkownDT {
 			dirs[dir]++
 		}
 	}

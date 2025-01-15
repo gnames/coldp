@@ -77,7 +77,7 @@ type NameUsage struct {
 
 func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
-	n.ID = row[""]
+	n.ID = row["id"]
 	n.AlternativeID = row["alternativeid"]
 	n.NameAlternativeID = row["namealternativeid"]
 	n.SourceID = row["sourceid"]

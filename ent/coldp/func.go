@@ -1,9 +1,13 @@
 package coldp
 
 import (
+	"bufio"
 	"context"
+	"encoding/json"
 	"fmt"
+	"io"
 	"log/slog"
+	"os"
 	"strconv"
 	"strings"
 	"sync"
@@ -13,6 +17,65 @@ import (
 	csvConfig "github.com/gnames/gnfmt/gncsv/config"
 	"github.com/gnames/gnlib"
 )
+
+func ReadJSON[T DataLoader](
+	path string,
+	chIn chan T) error {
+	jsonFile, err := os.Open(path)
+	if err != nil {
+		return err
+	}
+	defer jsonFile.Close()
+
+	byteValue, err := io.ReadAll(jsonFile)
+	if err != nil {
+		return err
+	}
+
+	slog.Info("Parsing references JSON-CSL file")
+	var cslRec CSLRecords
+	err = json.Unmarshal(byteValue, &cslRec)
+	if err != nil {
+		return err
+	}
+	for _, csl := range cslRec {
+		chIn <- csl.ToReference().(T)
+	}
+	close(chIn)
+	return nil
+}
+
+func ReadJSONL[T DataLoader](
+	path string,
+	chIn chan T) error {
+	f, err := os.Open(path) // Replace "my_file.txt" with your file name
+	if err != nil {
+		return err
+	}
+	defer f.Close() // Ensure the file is closed when done
+
+	slog.Info("Reading references from JSON-CSL file")
+
+	// Create a new scanner
+	scanner := bufio.NewScanner(f)
+
+	// Loop over all lines in the file
+	for scanner.Scan() {
+		bs := scanner.Bytes()
+		var csl CSL
+		err = json.Unmarshal(bs, &csl)
+		if err != nil {
+			return err
+		}
+		chIn <- csl.ToReference().(T)
+	}
+	if err := scanner.Err(); err != nil {
+		return err
+	}
+
+	close(chIn)
+	return nil
+}
 
 func Read[T DataLoader](
 	cfg config.Config,
@@ -29,7 +92,9 @@ func Read[T DataLoader](
 	}
 	csvCfg, err := csvConfig.New(opts...)
 	headers := gnlib.Map(csvCfg.Headers, func(s string) string {
-		return strings.ToLower(s)
+		s = strings.ToLower(s)
+		els := strings.Split(s, ":")
+		return els[len(els)-1]
 	})
 
 	go func() {
@@ -40,6 +105,7 @@ func Read[T DataLoader](
 			t = dl.(T)
 			if warn != nil {
 				slog.Warn("Cannot read row", "warn", warn, "row", row)
+				continue
 			}
 			chOut <- t
 		}
@@ -56,7 +122,6 @@ func Read[T DataLoader](
 	}
 	close(chIn)
 	wg.Wait()
-	close(chOut)
 
 	return nil
 }

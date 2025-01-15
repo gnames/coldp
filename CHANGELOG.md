@@ -5,14 +5,32 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.0] - 2025-01-16 Thu
+
+- Add: sucessufl import of Catalogue of Life from official CoLDP download.
+- Add: JSON-CSL parsing for references (did not find their need in production
+  yet).
+
+## [v0.2.0] - 2024-11-22 Fri
+
+- Add: fixes in fields names.
+- Add: more tests.
+- Add: all tables and enums.
+- Add: improve synonym and other data.
+- Add: authors, taxa, name_relation.
+- Add: geotime and oter enums.
+- Add: ranks.
+- Add: all tables.
+- Add: more taxon fields.
+- Add: nameusage.
+- Fix: taxon data.
+
 ## [v0.1.0] - 2024-10-17 Thu
 
 Add [#2]: make tsv/csv files injestable
 Add [#1]: parse metadata
 Add: extract works
 Add: convert to library
-
-:x
 
 Add: makefile
 Add: initial commit

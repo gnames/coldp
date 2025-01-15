@@ -320,6 +320,7 @@ const (
 	NameRelationDT
 	NameUsageDT
 	ReferenceDT
+	ReferenceJsonDT
 	SpeciesEstimateDT
 	SpeciesInteractionDT
 	SynonymDT
@@ -340,7 +341,9 @@ func (dt DataType) FileFormats() []FileType {
 		VernacularNameDT, TreatmentDT:
 		return []FileType{CSV, PSV, TSV}
 	case ReferenceDT:
-		return []FileType{BIBTEX, JSONCSL, CSV, PSV, TSV}
+		return []FileType{BIBTEX, CSV, PSV, TSV}
+	case ReferenceJsonDT:
+		return []FileType{JSONCSL}
 	default:
 		return []FileType{UnknownFileType}
 	}
@@ -364,6 +367,7 @@ var StringToDataType = map[string]DataType{
 	"SpeciesInteraction":   SpeciesInteractionDT,
 	"SpeciesEstimate":      SpeciesEstimateDT,
 	"Reference":            ReferenceDT,
+	"ReferenceJson":        ReferenceJsonDT,
 	"TypeMaterial":         TypeMaterialDT,
 	"Distribution":         DistributionDT,
 	"Media":                MediaDT,
@@ -391,8 +395,13 @@ var LowCaseToDataType = func() map[string]DataType {
 }()
 
 // NewDataType creates a new DataType from a string representation.
-func NewDataType(s string) DataType {
+func NewDataType(s, ext string) DataType {
 	s = strings.ToLower(s)
+	ext = strings.ToLower(ext)
+	// extension can be .json or .jsonl
+	if strings.HasPrefix(ext, ".json") {
+		s += "Json"
+	}
 	if dt, ok := LowCaseToDataType[s]; ok {
 		return dt
 	}
