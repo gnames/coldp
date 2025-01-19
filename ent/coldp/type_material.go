@@ -35,13 +35,13 @@ type TypeMaterial struct {
 	Country string
 
 	// Latitude is a decimal latitude of the type locality given in WGS84.
-	Latitude string
+	Latitude float64
 
 	// Longitute is a decimal longitude of the type locality given in WGS84.
-	Longitude string
+	Longitude float64
 
 	// Altitue is a decimal longitude of the type locality given in WGS84
-	Altitude string
+	Altitude int
 
 	// Host is the host organism from which the type specimen was obtained
 	// (symbiotype).
@@ -87,9 +87,9 @@ func (t TypeMaterial) Load(headers, data []string) (DataLoader, error) {
 	t.ReferenceID = row["referenceid"]
 	t.Locality = row["locality"]
 	t.Country = row["country"]
-	t.Latitude = row["latitude"]
-	t.Longitude = row["longitude"]
-	t.Altitude = row["altitude"]
+	t.Latitude = ToFloat(row["latitude"])
+	t.Longitude = ToFloat(row["longitude"])
+	t.Altitude = ToInt(row["altitude"])
 	t.Host = row["host"]
 	t.Sex = NewSex(row["sex"])
 	t.Date = row["date"]

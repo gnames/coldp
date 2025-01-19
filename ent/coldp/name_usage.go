@@ -1,78 +1,82 @@
 package coldp
 
+// NameUsage combines fields of Name, Taxon and Synonym.
 type NameUsage struct {
-	ID                        string // t
-	AlternativeID             string // t
-	NameAlternativeID         string
-	SourceID                  string // t
-	ParentID                  string // t
-	BasionymID                string // t
-	Status                    string // t
-	ScientificName            string
-	Authorship                string
-	Rank                      string
-	Notho                     string
-	OriginalSpelling          bool
-	Uninomial                 string
-	GenericName               string
-	InfragenericEpithet       string
-	SpecificEpithet           string
-	InfraspecificEpithet      string
-	CultivarEpithet           string
-	CombinationAuthorship     string
-	CombinationAuthorshipID   string
-	CombinationExAuthorship   string
-	CombinationExAuthorshipID string
-	CombinationAuthorshipYear string
-	BasionymAuthorship        string
-	BasionymAuthorshipID      string
-	BasionymExAuthorship      string
-	BasionymExAuthorshipID    string
-	BasionymAuthorshipYear    string
-	NamePhrase                string
-	NameReferenceID           string
-	PublishedInYear           string
-	PublishedInPage           string
-	PublishedInPageLink       string
-	Gender                    string
-	GenderAgreement           string
-	Etymology                 string
-	Code                      NomCode
-	NameStatus                NomStatus
-	AccordingToID             string // t
-	AccordingToPage           string // t
-	AccordingToPageLink       string // t
-	ReferenceID               string // t
-	Scrutinizer               string // t
-	ScrutinizerID             string // t
-	ScrutinizerDate           string // t
-	Extinct                   bool   // t
-	TemporalRangeStart        string // t
-	TemporalRangeEnd          string // t
-	Environment               string // t
-	Species                   string // t
-	Section                   string // t
-	Subgenus                  string // t
-	Genus                     string // t
-	Subtribe                  string // t
-	Tribe                     string // t
-	Subfamily                 string // t
-	Family                    string // t
-	Superfamily               string // t
-	Suborder                  string // t
-	Order                     string // t
-	Subclass                  string // t
-	Class                     string // t
-	Subphylum                 string // t
-	Phylum                    string // t
-	Kingdom                   string // t
-	Ordinal                   string // t
-	BranchLength              string // t
-	Link                      string // t
-	NameRemarks               string
-	Remarks                   string // t
-	Modified                  string // t
-	ModifiedBy                string // t
+	ID                        string          // t, s
+	AlternativeID             string          // t
+	NameAlternativeID         string          // n
+	LocalID                   string          // t GN
+	GlobalID                  string          // t GN
+	SourceID                  string          // n,t,s
+	ParentID                  string          // t, s
+	BasionymID                string          // t
+	TaxonomicStatus           TaxonomicStatus // s
+	ScientificName            string          // n
+	Authorship                string          // n
+	FullScientificName        string          // GN
+	Rank                      Rank            // n
+	Notho                     NamePart        // n
+	OriginalSpelling          bool            // n
+	Uninomial                 string          // n
+	GenericName               string          // n
+	InfragenericEpithet       string          // n
+	SpecificEpithet           string          // n
+	InfraspecificEpithet      string          // n
+	CultivarEpithet           string          // n
+	CombinationAuthorship     string          // n
+	CombinationAuthorshipID   string          // n
+	CombinationExAuthorship   string          // n
+	CombinationExAuthorshipID string          // n
+	CombinationAuthorshipYear string          // n
+	BasionymAuthorship        string          // n
+	BasionymAuthorshipID      string          // n
+	BasionymExAuthorship      string          // n
+	BasionymExAuthorshipID    string          // n
+	BasionymAuthorshipYear    string          // n
+	NamePhrase                string          // t
+	NameReferenceID           string          // n
+	PublishedInYear           string          // n
+	PublishedInPage           string          // n
+	PublishedInPageLink       string          // n
+	Gender                    Gender          // n
+	GenderAgreement           bool            // n
+	Etymology                 string          // n
+	Code                      NomCode         // n
+	NameStatus                NomStatus       // n
+	AccordingToID             string          // t
+	AccordingToPage           string          // t
+	AccordingToPageLink       string          // t
+	ReferenceID               string          // t
+	Scrutinizer               string          // t
+	ScrutinizerID             string          // t
+	ScrutinizerDate           string          // t
+	Extinct                   bool            // t
+	TemporalRangeStart        GeoTime         // t
+	TemporalRangeEnd          GeoTime         // t
+	Environment               string          // t
+	Species                   string          // t
+	Section                   string          // t
+	Subgenus                  string          // t
+	Genus                     string          // t
+	Subtribe                  string          // t
+	Tribe                     string          // t
+	Subfamily                 string          // t
+	Family                    string          // t
+	Superfamily               string          // t
+	Suborder                  string          // t
+	Order                     string          // t
+	Subclass                  string          // t
+	Class                     string          // t
+	Subphylum                 string          // t
+	Phylum                    string          // t
+	Kingdom                   string          // t
+	Ordinal                   int             // t
+	BranchLength              int             // t
+	Link                      string          // n, t
+	NameRemarks               string          // n
+	Remarks                   string          // t
+	Modified                  string          // n, t
+	ModifiedBy                string          // n, t
 }
 
 func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
@@ -83,11 +87,11 @@ func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
 	n.SourceID = row["sourceid"]
 	n.ParentID = row["parentid"]
 	n.BasionymID = row["basionymid"]
-	n.Status = row["status"]
+	n.TaxonomicStatus = NewTaxonomicStatus(row["status"])
 	n.ScientificName = row["scientificname"]
 	n.Authorship = row["authorship"]
-	n.Rank = row["rank"]
-	n.Notho = row["notho"]
+	n.Rank = NewRank(row["rank"])
+	n.Notho = NewNamePart(row["notho"])
 	n.OriginalSpelling = ToBool(row["originalspelling"])
 	n.Uninomial = row["uninomial"]
 	n.GenericName = row["genericname"]
@@ -110,8 +114,8 @@ func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
 	n.PublishedInYear = row["publishedinyear"]
 	n.PublishedInPage = row["publishedinpage"]
 	n.PublishedInPageLink = row["publishedinpagelink"]
-	n.Gender = row["gender"]
-	n.GenderAgreement = row["genderagreement"]
+	n.Gender = NewGender(row["gender"])
+	n.GenderAgreement = ToBool(row["genderagreement"])
 	n.Etymology = row["etymology"]
 	n.Code = NewNomCode(row["code"])
 	n.NameStatus = NewNomStatus(row["namestatus"])
@@ -123,8 +127,8 @@ func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
 	n.ScrutinizerID = row["scrutinizerid"]
 	n.ScrutinizerDate = row["scrutinizerdate"]
 	n.Extinct = ToBool(row["extinct"])
-	n.TemporalRangeStart = row["temporalrangestart"]
-	n.TemporalRangeEnd = row["temporalrangeend"]
+	n.TemporalRangeStart = NewGeoTime(row["temporalrangestart"])
+	n.TemporalRangeEnd = NewGeoTime(row["temporalrangeend"])
 	n.Environment = row["environment"]
 	n.Species = row["species"]
 	n.Section = row["section"]
@@ -142,8 +146,8 @@ func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
 	n.Subphylum = row["subphylum"]
 	n.Phylum = row["phylum"]
 	n.Kingdom = row["kingdom"]
-	n.Ordinal = row["ordinal"]
-	n.BranchLength = row["branchlength"]
+	n.Ordinal = ToInt(row["ordinal"])
+	n.BranchLength = ToInt(row["branchlength"])
 	n.Link = row["link"]
 	n.NameRemarks = row["nameremarks"]
 	n.Remarks = row["remarks"]

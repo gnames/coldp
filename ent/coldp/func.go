@@ -158,6 +158,13 @@ func ToBool(s string) bool {
 	}
 }
 
+func ToFloat(s string) float64 {
+	s = strings.ToLower(s)
+	s = strings.TrimSpace(s)
+	res, _ := strconv.ParseFloat(s, 64)
+	return res
+}
+
 func RowToMap(headers, row []string) (map[string]string, error) {
 	diff := len(headers) - len(row)
 	var warning error

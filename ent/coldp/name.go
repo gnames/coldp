@@ -25,6 +25,12 @@ type Name struct {
 	// Authorship is the verbatim authorship of the scientific name.
 	Authorship string
 
+	// FullScientificName contains the most complete version of scientific name
+	// available (with authorship, subgenus, intermediate authors, hybrid
+	// signs etc).
+	// It is not part of CoLDP standard.
+	FullScientificName string
+
 	// Rank is the taxonomic rank of the name.
 	Rank Rank
 

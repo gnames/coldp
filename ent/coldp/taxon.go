@@ -9,6 +9,15 @@ type Taxon struct {
 	// either URI/URN/URL, or scope:id, separated by ','
 	AlternativeID string
 
+	// LocalID corresponds to a local identifier, usually an integer. Some
+	// sources use it in their URLs and then it might be used by GN to show
+	// outlink URL.
+	LocalID string
+
+	// GlobalID corresponds to a globally unique identifier like UUID, LSID, DOI
+	// etc. If it is used in the source URL GN might use it.
+	GlobalID string
+
 	// SourceID is the identifier of the source from metadata.
 	SourceID string
 
@@ -19,7 +28,7 @@ type Taxon struct {
 	Ordinal int
 
 	// BranchLength is the branch length of this taxon in a phylogenetic tree.
-	BranchLength string
+	BranchLength int
 
 	// NameID is the identifier of the name associated with this taxon.
 	NameID string
@@ -136,7 +145,7 @@ func (t Taxon) Load(headers, data []string) (DataLoader, error) {
 	t.SourceID = row["sourceid"]
 	t.ParentID = row["parentid"]
 	t.Ordinal = ToInt(row["ordinal"])
-	t.BranchLength = row["branchlength"]
+	t.BranchLength = ToInt(row["branchlength"])
 	t.NameID = row["nameid"]
 	t.NamePhrase = row["namephrase"]
 	t.AccordingToID = row["accordingtoid"]
