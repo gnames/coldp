@@ -486,6 +486,7 @@ func (ts TaxonomicStatus) String() string {
 
 func NewTaxonomicStatus(s string) TaxonomicStatus {
 	s = strings.ToUpper(s)
+	s = strings.Replace(s, " ", "_", -1)
 	if res, ok := stringToTaxStat[s]; ok {
 		return res
 	}
