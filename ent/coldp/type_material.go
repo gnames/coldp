@@ -1,5 +1,7 @@
 package coldp
 
+import "database/sql"
+
 // Type material designated to names. Type material should only be
 // associated with the original name, not with a recombination.
 type TypeMaterial struct {
@@ -35,13 +37,13 @@ type TypeMaterial struct {
 	Country string
 
 	// Latitude is a decimal latitude of the type locality given in WGS84.
-	Latitude float64
+	Latitude sql.NullFloat64
 
 	// Longitute is a decimal longitude of the type locality given in WGS84.
-	Longitude float64
+	Longitude sql.NullFloat64
 
 	// Altitue is a decimal longitude of the type locality given in WGS84
-	Altitude int
+	Altitude sql.NullInt64
 
 	// Host is the host organism from which the type specimen was obtained
 	// (symbiotype).

@@ -3,6 +3,7 @@ package coldp
 import (
 	"bufio"
 	"context"
+	"database/sql"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -136,32 +137,47 @@ func (w *FieldNumberWarning) Error() string {
 	return w.Message
 }
 
-func ToInt(s string) int {
+func ToInt(s string) sql.NullInt64 {
+	var res sql.NullInt64
 	s = strings.ToLower(s)
 	s = strings.TrimSpace(s)
-	res, _ := strconv.Atoi(s)
+	v, err := strconv.Atoi(s)
+	if err != nil {
+		return res
+	}
+	res.Int64 = int64(v)
+	res.Valid = true
 	return res
 }
 
-func ToBool(s string) bool {
+func ToBool(s string) sql.NullBool {
+	var res sql.NullBool
 	s = strings.ToLower(s)
 	s = strings.TrimSpace(s)
 	if s == "" {
-		return false
+		return res
 	}
+	res.Valid = true
 	b := s[0]
 	switch b {
 	case '1', 'y', 't':
-		return true
+		res.Bool = true
 	default:
-		return false
+		res.Bool = false
 	}
+	return res
 }
 
-func ToFloat(s string) float64 {
+func ToFloat(s string) sql.NullFloat64 {
+	var res sql.NullFloat64
 	s = strings.ToLower(s)
 	s = strings.TrimSpace(s)
-	res, _ := strconv.ParseFloat(s, 64)
+	v, err := strconv.ParseFloat(s, 64)
+	if err != nil {
+		return res
+	}
+	res.Float64 = v
+	res.Valid = true
 	return res
 }
 

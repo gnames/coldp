@@ -13,8 +13,8 @@ type Meta struct {
 	TaxonomicScope    string   `yaml:"taxonomicScope,omitempty"    json:"taxonomicScope,omitempty"`
 	TemporalScope     string   `yaml:"temporalScope,omitempty"     json:"temporalScope,omitempty"`
 	Keywords          []string `yaml:"keywords,omitempty"          json:"keywords,omitempty"`
-	Confidence        int      `yaml:"confidence,omitempty"        json:"confidence,omitempty"`
-	Completeness      int      `yaml:"completeness,omitempty"      json:"completeness,omitempty"`
+	Confidence        *int     `yaml:"confidence,omitempty"        json:"confidence,omitempty"`
+	Completeness      *int     `yaml:"completeness,omitempty"      json:"completeness,omitempty"`
 	License           string   `yaml:"license,omitempty"           json:"license,omitempty"`
 	URL               string   `yaml:"url,omitempty"               json:"url,omitempty"`
 	Logo              string   `yaml:"logo,omitempty"              json:"logo,omitempty"`

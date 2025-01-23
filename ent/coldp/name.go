@@ -1,5 +1,7 @@
 package coldp
 
+import "database/sql"
+
 // Name contains information about a scientific name.
 type Name struct {
 	// ID is the unique identifier for this name.
@@ -57,7 +59,7 @@ type Name struct {
 
 	// OriginalSpelling indicates whether the name is spelled as originally
 	// published.
-	OriginalSpelling bool
+	OriginalSpelling sql.NullBool
 
 	// CombinationAuthorship is the authorship of the combination.
 	// Authors are separated by '|'.
@@ -124,7 +126,7 @@ type Name struct {
 
 	// GenderAgreement indicates whether the gender of the name agrees with the
 	// gender of the genus.
-	GenderAgreement bool
+	GenderAgreement sql.NullBool
 
 	// Etymology is the etymology of the name.
 	Etymology string

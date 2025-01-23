@@ -1,5 +1,7 @@
 package coldp
 
+import "database/sql"
+
 // NameUsage combines fields of Name, Taxon and Synonym.
 type NameUsage struct {
 	ID                        string          // t, s
@@ -16,7 +18,7 @@ type NameUsage struct {
 	ScientificNameString      string          // GN
 	Rank                      Rank            // n
 	Notho                     NamePart        // n
-	OriginalSpelling          bool            // n
+	OriginalSpelling          sql.NullBool    // n
 	Uninomial                 string          // n
 	GenericName               string          // n
 	InfragenericEpithet       string          // n
@@ -39,7 +41,7 @@ type NameUsage struct {
 	PublishedInPage           string          // n
 	PublishedInPageLink       string          // n
 	Gender                    Gender          // n
-	GenderAgreement           bool            // n
+	GenderAgreement           sql.NullBool    // n
 	Etymology                 string          // n
 	Code                      NomCode         // n
 	NameStatus                NomStatus       // n
@@ -50,7 +52,7 @@ type NameUsage struct {
 	Scrutinizer               string          // t
 	ScrutinizerID             string          // t
 	ScrutinizerDate           string          // t
-	Extinct                   bool            // t
+	Extinct                   sql.NullBool    // t
 	TemporalRangeStart        GeoTime         // t
 	TemporalRangeEnd          GeoTime         // t
 	Environment               string          // t
@@ -70,8 +72,8 @@ type NameUsage struct {
 	Subphylum                 string          // t
 	Phylum                    string          // t
 	Kingdom                   string          // t
-	Ordinal                   int             // t
-	BranchLength              int             // t
+	Ordinal                   sql.NullInt64   // t
+	BranchLength              sql.NullInt64   // t
 	Link                      string          // n, t
 	NameRemarks               string          // n
 	Remarks                   string          // t

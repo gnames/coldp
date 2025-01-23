@@ -1,5 +1,7 @@
 package coldp
 
+import "database/sql"
+
 // SpeciesEstimate provides estimation of how many species are children of
 // the taxon.
 type SpeciesEstimate struct {
@@ -10,7 +12,7 @@ type SpeciesEstimate struct {
 	SourceID string
 
 	// Estimate is the estimated number of species for the taxon.
-	Estimate int
+	Estimate sql.NullInt64
 
 	// Type of the estimation.
 	Type EstimateType

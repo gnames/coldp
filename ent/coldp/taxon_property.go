@@ -1,5 +1,7 @@
 package coldp
 
+import "database/sql"
+
 // TaxonProperty allows to add arbitrary properties that further describe
 // a taxon.
 type TaxonProperty struct {
@@ -22,7 +24,7 @@ type TaxonProperty struct {
 	Page string
 
 	// Ordinal for sorting.
-	Ordinal int
+	Ordinal sql.NullInt64
 
 	// Remarks about the specimen.
 	Remarks string

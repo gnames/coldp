@@ -1,5 +1,7 @@
 package coldp
 
+import "database/sql"
+
 // Taxon represents a taxonomic data in the CoLDP.
 type Taxon struct {
 	// ID is the unique identifier for this taxon.
@@ -25,10 +27,10 @@ type Taxon struct {
 	ParentID string
 
 	// Ordinal is the used to sort siblings of the same ParentID.
-	Ordinal int
+	Ordinal sql.NullInt64
 
 	// BranchLength is the branch length of this taxon in a phylogenetic tree.
-	BranchLength int
+	BranchLength sql.NullInt64
 
 	// NameID is the identifier of the name associated with this taxon.
 	NameID string
@@ -57,14 +59,14 @@ type Taxon struct {
 	ScrutinizerDate string
 
 	// Provisional indicates taxon is only provisionaly accepted.
-	Provisional bool
+	Provisional sql.NullBool
 
 	// ReferenceID is the comma-separated list of references that support
 	// this taxon concept.
 	ReferenceID string
 
 	// Extinct indicates whether this taxon is extinct.
-	Extinct bool
+	Extinct sql.NullBool
 
 	// TemporalRangeStart is the start of the temporal range of this taxon.
 	TemporalRangeStart GeoTime
