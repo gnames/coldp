@@ -13,7 +13,7 @@ type NameUsage struct {
 	TaxonomicStatus           TaxonomicStatus // s
 	ScientificName            string          // n
 	Authorship                string          // n
-	FullScientificName        string          // GN
+	ScientificNameString      string          // GN
 	Rank                      Rank            // n
 	Notho                     NamePart        // n
 	OriginalSpelling          bool            // n
@@ -90,6 +90,10 @@ func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
 	n.TaxonomicStatus = NewTaxonomicStatus(row["status"])
 	n.ScientificName = row["scientificname"]
 	n.Authorship = row["authorship"]
+	n.ScientificNameString = n.ScientificName
+	if n.Authorship != "" {
+		n.ScientificNameString += " " + n.Authorship
+	}
 	n.Rank = NewRank(row["rank"])
 	n.Notho = NewNamePart(row["notho"])
 	n.OriginalSpelling = ToBool(row["originalspelling"])

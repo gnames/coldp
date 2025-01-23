@@ -25,11 +25,11 @@ type Name struct {
 	// Authorship is the verbatim authorship of the scientific name.
 	Authorship string
 
-	// FullScientificName contains the most complete version of scientific name
+	// ScientificNameString contains the most complete version of scientific name
 	// available (with authorship, subgenus, intermediate authors, hybrid
 	// signs etc).
 	// It is not part of CoLDP standard.
-	FullScientificName string
+	ScientificNameString string
 
 	// Rank is the taxonomic rank of the name.
 	Rank Rank
@@ -152,6 +152,10 @@ func (n Name) Load(headers, data []string) (DataLoader, error) {
 	n.BasionymID = row["basionymid"] // becomes NameRelation
 	n.ScientificName = row["scientificname"]
 	n.Authorship = row["authorship"] // verbatim author string
+	n.ScientificNameString = n.ScientificName
+	if n.Authorship != "" {
+		n.ScientificNameString += " " + n.Authorship
+	}
 	n.Rank = NewRank(row["rank"])
 	n.Uninomial = row["uninomial"]
 	n.Genus = row["genus"]

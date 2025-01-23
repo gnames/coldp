@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.2] - 2025-01-23 Thu
+
+Add: rename Name.FullScientificName to Name.ScientificNameString.
+
 ## [v0.3.1] - 2025-01-19 Sun
 
 Fix: NameUsage import.
