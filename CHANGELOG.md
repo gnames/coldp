@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.4] - 2025-01-24 Fri
+
+Add: allow NULL for preferred field in vernacular.
+
 ## [v0.3.3] - 2025-01-23 Thu
 
 Add: allow NULL for integers and booleans

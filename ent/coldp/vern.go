@@ -1,5 +1,7 @@
 package coldp
 
+import "database/sql"
+
 // Vernacular name of a taxon.
 type Vernacular struct {
 	// TaxonID of the corresponding taxon.
@@ -19,7 +21,7 @@ type Vernacular struct {
 
 	// Preferred is true when this vernacular names is considered the most
 	// used for the language.
-	Preferred bool
+	Preferred sql.NullBool
 
 	// Country name (two-letter ISO 3166-2  code)
 	Country string
@@ -52,7 +54,7 @@ func (v Vernacular) Load(headers, data []string) (DataLoader, error) {
 	v.Name = row["name"]
 	v.Transliteration = row["transliteration"]
 	v.Language = row["language"]
-	v.Preferred = row["preferred"] == "true"
+	v.Preferred = ToBool(row["preferred"])
 	v.Country = row["country"]
 	v.Area = row["area"]
 	v.Sex = NewSex(row["sex"])
