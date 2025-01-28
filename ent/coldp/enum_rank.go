@@ -5,13 +5,17 @@ import "strings"
 // Rank represents the taxonomic rank of a scientific name.
 type Rank int
 
-// String returns the string representation of the rank.
-// It prioritizes abbreviations if available, then falls back to full names.
-func (r Rank) String() string {
+// ID returns the ID of the rank.
+func (r Rank) ID() string {
 	if res, ok := rankToString[r]; ok {
 		return res
 	}
 	return ""
+}
+
+// String returns the string representation of the rank.
+func (r Rank) String() string {
+	return ToStr(r.ID())
 }
 
 // NewRank creates a new Rank from a string representation.

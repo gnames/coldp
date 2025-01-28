@@ -89,11 +89,17 @@ var stringToReferenceType = func() map[string]ReferenceType {
 	return res
 }()
 
-func (rg ReferenceType) String() string {
+// ID returns the string ID of ReferenceType.
+func (rg ReferenceType) ID() string {
 	if res, ok := refTypeToString[rg]; ok {
 		return res
 	}
 	return ""
+}
+
+// String returns the string representation of ReferenceType.
+func (rg ReferenceType) String() string {
+	return ToStr(rg.ID())
 }
 
 func NewReferenceType(s string) ReferenceType {

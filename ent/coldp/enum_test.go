@@ -45,7 +45,7 @@ func TestNomCodeString(t *testing.T) {
 	}
 
 	for _, v := range tests {
-		res := v.inp.String()
+		res := v.inp.ID()
 		assert.Equal(v.out, res, v.msg)
 	}
 }
@@ -68,7 +68,7 @@ func TestNomRelType(t *testing.T) {
 	}
 
 	for _, v := range testCases {
-		res := v.inp.String()
+		res := v.inp.ID()
 		assert.Equal(v.out, res)
 	}
 }
@@ -112,7 +112,7 @@ func TestNamePartString(t *testing.T) {
 	}
 
 	for _, tc := range tests {
-		res := tc.inp.String()
+		res := tc.inp.ID()
 		assert.Equal(tc.out, res)
 	}
 }
@@ -152,7 +152,7 @@ func TestEnvironment(t *testing.T) {
 		{"terrestrial", "TERRESTRIAL", coldp.Terrestrial},
 	}
 	for _, v := range tests {
-		res := v.out.String()
+		res := v.out.ID()
 		assert.Equal(v.inp, res, v.msg)
 	}
 

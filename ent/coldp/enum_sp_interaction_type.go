@@ -103,11 +103,15 @@ var stringToSpIntType = func() map[string]SpInteractionType {
 	return res
 }()
 
-func (si SpInteractionType) String() string {
+func (si SpInteractionType) ID() string {
 	if res, ok := spIntTypeToString[si]; ok {
 		return res
 	}
 	return ""
+}
+
+func (si SpInteractionType) String() string {
+	return ToStr(si.ID())
 }
 
 func NewSpInteractionType(s string) SpInteractionType {

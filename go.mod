@@ -1,6 +1,6 @@
 module github.com/gnames/coldp
 
-go 1.23.3
+go 1.23.4
 
 require (
 	github.com/gnames/gnfmt v0.5.3

@@ -87,11 +87,15 @@ var stringToTypeStatus = func() map[string]TypeStatus {
 	return res
 }()
 
-func (ts TypeStatus) String() string {
+func (ts TypeStatus) ID() string {
 	if res, ok := typeStatusToString[ts]; ok {
 		return res
 	}
 	return ""
+}
+
+func (ts TypeStatus) String() string {
+	return ToStr(ts.ID())
 }
 
 func NewTypeStatus(s string) TypeStatus {

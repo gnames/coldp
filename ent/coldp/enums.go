@@ -46,11 +46,15 @@ var nomCodeToString = map[NomCode]string{
 	Zoological:        "ZOOLOGICAL",
 }
 
-func (nc NomCode) String() string {
+func (nc NomCode) ID() string {
 	if res, ok := nomCodeToString[nc]; ok {
 		return res
 	}
 	return ""
+}
+
+func (nc NomCode) String() string {
+	return ToStr(nc.ID())
 }
 
 type NomRelType int
@@ -100,11 +104,15 @@ func NewNomRelType(s string) NomRelType {
 	return UnknownNomRelType
 }
 
-func (n NomRelType) String() string {
+func (n NomRelType) ID() string {
 	if res, ok := nomRelTypeToString[n]; ok {
 		return res
 	}
 	return ""
+}
+
+func (n NomRelType) String() string {
+	return ToStr(n.ID())
 }
 
 // NamePart represents the part of a scientific name.
@@ -143,11 +151,15 @@ var namePartToString = map[NamePart]string{
 	InfraspecificNP: "INFRASPECIFIC",
 }
 
-func (np NamePart) String() string {
+func (np NamePart) ID() string {
 	if res, ok := namePartToString[np]; ok {
 		return res
 	}
 	return ""
+}
+
+func (np NamePart) String() string {
+	return ToStr(np.ID())
 }
 
 // ArchiveType provides type of CoLDP. Can be 'flat' or NameUsage, and
@@ -190,12 +202,17 @@ var stringToEnv = func() map[string]Environment {
 	return res
 }()
 
-// String returns the string representation of the environment.
-func (e Environment) String() string {
+// ID returns string ID of the Environment.
+func (e Environment) ID() string {
 	if res, ok := envToString[e]; ok {
 		return res
 	}
 	return ""
+}
+
+// String returns the string representation of the Environment.
+func (e Environment) String() string {
+	return ToStr(e.ID())
 }
 
 // NewEnvironment creates a new Environment from a string representation.
@@ -233,8 +250,8 @@ func NewSex(s string) Sex {
 	}
 }
 
-// String returns string representation of Sex object.
-func (s Sex) String() string {
+// ID returns string ID for Sex.
+func (s Sex) ID() string {
 	switch s {
 	case Male:
 		return "MALE"
@@ -245,6 +262,11 @@ func (s Sex) String() string {
 	default:
 		return ""
 	}
+}
+
+// String returns string representation of Sex object.
+func (s Sex) String() string {
+	return ToStr(s.ID())
 }
 
 // Gender represents the grammatical gender of a scientific name.
@@ -274,8 +296,8 @@ func NewGender(s string) Gender {
 	}
 }
 
-// String returns the string representation of the gender.
-func (g Gender) String() string {
+// ID returns string ID for Gender.
+func (g Gender) ID() string {
 	switch g {
 	case Masculine:
 		return "MASCULINE"
@@ -286,6 +308,11 @@ func (g Gender) String() string {
 	default:
 		return ""
 	}
+}
+
+// String returns the string representation of the gender.
+func (g Gender) String() string {
+	return ToStr(g.ID())
 }
 
 // FileType represents the type of file.
@@ -349,9 +376,14 @@ func (dt DataType) FileFormats() []FileType {
 	}
 }
 
+// ID returns the string ID of the DataType.
+func (dt DataType) ID() string {
+	return DataTypeToString[dt]
+}
+
 // String returns the string representation of the DataType.
 func (dt DataType) String() string {
-	return DataTypeToString[dt]
+	return ToStr(dt.ID())
 }
 
 // StringToDataType maps strings to DataTypes.
@@ -433,11 +465,17 @@ var stringToDistrStatus = func() map[string]DistrStatus {
 	return res
 }()
 
-func (ds DistrStatus) String() string {
+// ID return the string ID of DistrStatus.
+func (ds DistrStatus) ID() string {
 	if res, ok := distrStatusToString[ds]; ok {
 		return res
 	}
 	return ""
+}
+
+// String return the string representation of DistrStatus.
+func (ds DistrStatus) String() string {
+	return ToStr(ds.ID())
 }
 
 func NewDistrStatus(s string) DistrStatus {
@@ -446,51 +484,6 @@ func NewDistrStatus(s string) DistrStatus {
 		return res
 	}
 	return UnknownDistSt
-}
-
-type TaxonomicStatus int
-
-const (
-	UnknownTaxSt TaxonomicStatus = iota
-	AcceptedTS
-	ProvisionallyAcceptedTS
-	SynonymTS
-	AmbiguousSynonymTS
-	MisappliedTS
-	BareNameTS
-)
-
-var taxStatToString = map[TaxonomicStatus]string{
-	AcceptedTS:              "ACCEPTED",
-	ProvisionallyAcceptedTS: "PROVISIONALLY_ACCEPTED",
-	SynonymTS:               "SYNONYM",
-	AmbiguousSynonymTS:      "AMBIGUOUS_SYNONYM",
-	MisappliedTS:            "MISAPPLIED",
-	BareNameTS:              "BARE_NAME",
-}
-
-var stringToTaxStat = func() map[string]TaxonomicStatus {
-	res := make(map[string]TaxonomicStatus)
-	for k, v := range taxStatToString {
-		res[v] = k
-	}
-	return res
-}()
-
-func (ts TaxonomicStatus) String() string {
-	if res, ok := taxStatToString[ts]; ok {
-		return res
-	}
-	return ""
-}
-
-func NewTaxonomicStatus(s string) TaxonomicStatus {
-	s = strings.ToUpper(s)
-	s = strings.Replace(s, " ", "_", -1)
-	if res, ok := stringToTaxStat[s]; ok {
-		return res
-	}
-	return UnknownTaxSt
 }
 
 type EstimateType int
@@ -516,11 +509,17 @@ var stringToEstType = func() map[string]EstimateType {
 	return res
 }()
 
-func (et EstimateType) String() string {
+// ID returns the string ID of EstimatedType.
+func (et EstimateType) ID() string {
 	if res, ok := estTypeToString[et]; ok {
 		return res
 	}
 	return ""
+}
+
+// String returns the string representation of EstimatedType.
+func (et EstimateType) String() string {
+	return ToStr(et.ID())
 }
 
 func NewEstimateType(s string) EstimateType {
@@ -559,11 +558,17 @@ var stringToTCRelType = func() map[string]TaxonConceptRelType {
 	return res
 }()
 
-func (t TaxonConceptRelType) String() string {
+// ID returns the string ID of TaxonConceptRelType.
+func (t TaxonConceptRelType) ID() string {
 	if res, ok := tcRelTypeToString[t]; ok {
 		return res
 	}
 	return ""
+}
+
+// String returns the string representation of TaxonConceptRelType.
+func (t TaxonConceptRelType) String() string {
+	return ToStr(t.ID())
 }
 
 func NewTaxonConceptRelType(s string) TaxonConceptRelType {

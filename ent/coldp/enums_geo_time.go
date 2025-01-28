@@ -376,11 +376,17 @@ var stringToGeoTime = func() map[string]GeoTime {
 	return res
 }()
 
-func (g GeoTime) String() string {
+// ID return the string ID of GeoTime.
+func (g GeoTime) ID() string {
 	if res, ok := geotimeToString[g]; ok {
 		return res
 	}
 	return ""
+}
+
+// String return the string representation of GeoTime.
+func (g GeoTime) String() string {
+	return ToStr(g.ID())
 }
 
 func NewGeoTime(s string) GeoTime {

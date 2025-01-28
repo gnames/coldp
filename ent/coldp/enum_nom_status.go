@@ -68,9 +68,13 @@ var nomStatusToString = map[NomStatus]string{
 	Chresonym:      "CHRESONYM",
 }
 
-func (n NomStatus) String() string {
+func (n NomStatus) ID() string {
 	if res, ok := nomStatusToString[n]; ok {
 		return res
 	}
 	return ""
+}
+
+func (n NomStatus) String() string {
+	return ToStr(n.ID())
 }

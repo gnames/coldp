@@ -35,11 +35,17 @@ var stringToGazetteer = func() map[string]GazetteerEnt {
 	return res
 }()
 
-func (g GazetteerEnt) String() string {
+// ID returns the string ID of GazetteerEnt.
+func (g GazetteerEnt) ID() string {
 	if res, ok := gazetteerToString[g]; ok {
 		return res
 	}
 	return ""
+}
+
+// String returns the string representation of GazetteerEnt.
+func (g GazetteerEnt) String() string {
+	return ToStr(g.ID())
 }
 
 func NewGazetteerEnt(s string) GazetteerEnt {

@@ -215,3 +215,11 @@ func RowToMap(headers, row []string) (map[string]string, error) {
 
 	return res, warning
 }
+
+// ToStr normalizes enumerated string IDs to 'normal' strings.
+// For example 'PROVISIONALLY_ACCEPTED' becomes
+// 'provisionally accepted'.
+func ToStr(s string) string {
+	s = strings.ToLower(s)
+	return strings.ReplaceAll(s, "_", " ")
+}
