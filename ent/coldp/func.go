@@ -9,6 +9,7 @@ import (
 	"io"
 	"log/slog"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 	"sync"
@@ -97,6 +98,15 @@ func Read[T DataLoader](
 		els := strings.Split(s, ":")
 		return els[len(els)-1]
 	})
+
+	var colSep string
+	switch csvCfg.ColSep {
+	case '\t':
+		colSep = "'\\t'"
+	default:
+		colSep = "'" + string(csvCfg.ColSep) + "'"
+	}
+	slog.Info("Processing CSV", "col-sep", colSep, "file", filepath.Base(path))
 
 	go func() {
 		defer wg.Done()

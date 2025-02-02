@@ -348,6 +348,7 @@ const (
 	NameUsageDT
 	ReferenceDT
 	ReferenceJsonDT
+	ReferenceBibtexDT
 	SpeciesEstimateDT
 	SpeciesInteractionDT
 	SynonymDT
@@ -368,7 +369,9 @@ func (dt DataType) FileFormats() []FileType {
 		VernacularNameDT, TreatmentDT:
 		return []FileType{CSV, PSV, TSV}
 	case ReferenceDT:
-		return []FileType{BIBTEX, CSV, PSV, TSV}
+		return []FileType{CSV, PSV, TSV}
+	case ReferenceBibtexDT:
+		return []FileType{BIBTEX}
 	case ReferenceJsonDT:
 		return []FileType{JSONCSL}
 	default:
@@ -400,6 +403,7 @@ var StringToDataType = map[string]DataType{
 	"SpeciesEstimate":      SpeciesEstimateDT,
 	"Reference":            ReferenceDT,
 	"ReferenceJson":        ReferenceJsonDT,
+	"ReferenceBibTex":      ReferenceBibtexDT,
 	"TypeMaterial":         TypeMaterialDT,
 	"Distribution":         DistributionDT,
 	"Media":                MediaDT,

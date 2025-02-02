@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.6] - 2025-02-02 Sun
+
+Add: BibTeX references format.
+
 ## [v0.3.5] - 2025-01-28 Tue
 
 Add: ID method to all enums. String() now returns low-cased string with
