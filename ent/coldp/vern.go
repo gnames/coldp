@@ -30,7 +30,7 @@ type Vernacular struct {
 	// free text within the given country.
 	Area string
 
-	// Sex (ptional) of the organism this vernacular name is restricted to.
+	// Sex (optional) of the organism this vernacular name is restricted to.
 	Sex Sex
 
 	// ReferenceID where the name is supported.
@@ -44,6 +44,24 @@ type Vernacular struct {
 
 	// ModifiedBy a person who last modified the record.
 	ModifiedBy string
+}
+
+func (v Vernacular) Headers() []string {
+	return []string{
+		"col:taxonId",
+		"col:sourceId",
+		"col:name",
+		"col:transliteration",
+		"col:language",
+		"col:preferred",
+		"col:country",
+		"col:area",
+		"col:sex",
+		"col:referenceId",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
 }
 
 // Load populates a Vernacular object from a row of data.

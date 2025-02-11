@@ -20,6 +20,17 @@ type Treatment struct {
 	ModifiedBy string
 }
 
+func (t Treatment) Headers() []string {
+	return []string{
+		"col:taxonId",
+		"col:sourceId",
+		"col:document",
+		"col:format",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 // Load populates the Treatment object from a row of data.
 func (t Treatment) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)

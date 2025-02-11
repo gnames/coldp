@@ -76,6 +76,33 @@ type TypeMaterial struct {
 	ModifiedBy string
 }
 
+func (t TypeMaterial) Headers() []string {
+	return []string{
+		"col:id",
+		"col:sourceId",
+		"col:nameId",
+		"col:citation",
+		"col:status",
+		"col:institutionCode",
+		"col:catalogNumber",
+		"col:referenceID",
+		"col:locality",
+		"col:country",
+		"col:latitude",
+		"col:longitude",
+		"col:altitude",
+		"col:host",
+		"col:sex",
+		"col:date",
+		"col:collector",
+		"col:associatedSequences",
+		"col:link",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 // Load populates the TypeMaterial object from a row of data.
 func (t TypeMaterial) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)

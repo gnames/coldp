@@ -76,7 +76,7 @@ type Taxon struct {
 
 	// Environment is the environments where this taxon lives. Uses Environment
 	// controlled vocabulary (comma-separated).
-	Environment string
+	Environment Environment
 
 	// Species is the species name within this taxon.
 	Species string
@@ -139,6 +139,50 @@ type Taxon struct {
 	ModifiedBy string
 }
 
+func (t Taxon) Headers() []string {
+	return []string{
+		"col:id",
+		"col:alternativeId",
+		"col:sourceId",
+		"col:parentId",
+		"col:ordinal",
+		"col:branchLength",
+		"col:nameId",
+		"col:namePhrase",
+		"col:accordingToId",
+		"col:accordingToPage",
+		"col:accordingToPageLink",
+		"col:scrutinizer",
+		"col:scrutinizerId",
+		"col:provisional",
+		"col:extinct",
+		"col:temporalRangeStart",
+		"col:temporalRangeEnd",
+		"col:environment",
+		"col:species",
+		"col:section",
+		"col:subgenus",
+		"col:genus",
+		"col:subtribe",
+		"col:tribe",
+		"col:subfamily",
+		"col:family",
+		"col:superfamily",
+		"col:suborder",
+		"col:order",
+		"col:subclass",
+		"col:class",
+		"col:subphylum",
+		"col:phylum",
+		"col:kingdom",
+		"col:referenceId",
+		"col:link",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 // Load populates the Taxon object from a row of data.
 func (t Taxon) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
@@ -155,11 +199,11 @@ func (t Taxon) Load(headers, data []string) (DataLoader, error) {
 	t.AccordingToPageLink = row["accordingtopagelink"]
 	t.Scrutinizer = row["scrutinizer"]
 	t.ScrutinizerID = row["scrutinizerid"]
-	t.Provisional = ToBool(row["Provisional"])
+	t.Provisional = ToBool(row["provisional"])
 	t.Extinct = ToBool(row["extinct"])
 	t.TemporalRangeStart = NewGeoTime(row["temporalrangestart"])
 	t.TemporalRangeEnd = NewGeoTime(row["temporalrangeend"])
-	t.Environment = row["environment"]
+	t.Environment = NewEnvironment(row["environment"])
 	t.Species = row["species"]
 	t.Section = row["section"]
 	t.Subgenus = row["subgenus"]

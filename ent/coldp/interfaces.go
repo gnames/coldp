@@ -4,6 +4,7 @@ import (
 	"github.com/gnames/coldp/config"
 )
 
+// Archive provides methods for managing CoLDP archive.
 type Archive interface {
 	// ResetCache clears cache directory from files.
 	ResetCache() error

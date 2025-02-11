@@ -35,6 +35,19 @@ type NameRelation struct {
 	ModifiedBy string
 }
 
+func (n NameRelation) Headers() []string {
+	return []string{
+		"col:nameId",
+		"col:relatedNameId",
+		"col:sourceId",
+		"col:type",
+		"col:referenceId",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 // Load populates a NameRelation object with data from a parsed row.
 func (n NameRelation) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)

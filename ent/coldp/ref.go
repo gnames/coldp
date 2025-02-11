@@ -107,6 +107,43 @@ type Reference struct {
 	ModifiedBy string
 }
 
+func (r Reference) Headers() []string {
+	return []string{
+		"col:id",
+		"col:alternativeId",
+		"col:sourceId",
+		"col:citation",
+		"col:type",
+		"col:author",
+		"col:authorId",
+		"col:editor",
+		"col:editorId",
+		"col:title",
+		"col:titleShort",
+		"col:containerAuthor",
+		"col:containerTitle",
+		"col:containerTitleShort",
+		"col:issued",
+		"col:accessed",
+		"col:collectionTitle",
+		"col:collectionEditor",
+		"col:volume",
+		"col:issue",
+		"col:edition",
+		"col:page",
+		"col:publisher",
+		"col:publisherPlace",
+		"col:version",
+		"col:isbn",
+		"col:issn",
+		"col:doi",
+		"col:link",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 func (r Reference) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	r.ID = row["id"]

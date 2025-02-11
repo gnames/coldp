@@ -13,6 +13,11 @@ import (
 
 func (a *arcio) Extract() error {
 	var err error
+	err = a.ResetCache()
+	if err != nil {
+		return err
+	}
+
 	if strings.HasPrefix(a.path, "http") {
 		a.path, err = gnsys.Download(a.path, a.cfg.DownloadDir, true)
 		if err != nil {

@@ -5,10 +5,7 @@ import (
 	"path/filepath"
 
 	"github.com/gnames/gnfmt"
-)
-
-// Config is a configuration object for the CoLDP archive
-// data processing.
+) // Config is a configuration object for the CoLDP archive data processing.
 type Config struct {
 	// CacheDir is the root path for all temporary files.
 	CacheDir string
@@ -16,7 +13,7 @@ type Config struct {
 	// DownloadDir is used to store downloaded files.
 	DownloadDir string
 
-	// ExtractDir is used to store extracted files of DwCA archive.
+	// ExtractDir is used to store extracted files of CoLDP archive.
 	ExtractDir string
 
 	// BadRow sets how to process rows with wrong number of fields in CSV

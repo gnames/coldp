@@ -102,11 +102,8 @@ func TestName(t *testing.T) {
 func Extract(path string) (coldp.Archive, error) {
 	cfg := config.New()
 	c := arcio.New(cfg, path)
-	err := c.ResetCache()
-	if err != nil {
-		return nil, err
-	}
-	err = c.Extract()
+
+	err := c.Extract()
 	if err != nil {
 		return nil, err
 	}

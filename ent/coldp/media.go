@@ -42,6 +42,24 @@ type Media struct {
 	ModifiedBy string
 }
 
+func (m Media) Headers() []string {
+	return []string{
+		"col:taxonId",
+		"col:sourceId",
+		"col:url",
+		"col:type",
+		"col:format",
+		"col:title",
+		"col:created",
+		"col:creator",
+		"col:license",
+		"col:link",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 // Load populates the Media object from a row of data.
 func (m Media) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)

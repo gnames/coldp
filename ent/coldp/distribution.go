@@ -39,6 +39,20 @@ type Distribution struct {
 	ModifiedBy string
 }
 
+func (d Distribution) Headers() []string {
+	return []string{
+		"col:taxonId",
+		"col:sourceId",
+		"col:area",
+		"col:areaId",
+		"col:gazetteer",
+		"col:status",
+		"col:referenceId",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
 func (d Distribution) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	d.TaxonID = row["taxonid"]

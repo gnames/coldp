@@ -30,6 +30,19 @@ type SpeciesEstimate struct {
 	ModifiedBy string
 }
 
+func (s SpeciesEstimate) Headers() []string {
+	return []string{
+		"col:taxonId",
+		"col:sourceId",
+		"col:estimate",
+		"col:type",
+		"col:referenceId",
+		"col:remarks",
+		"col:modified",
+		"col:modified_by",
+	}
+}
+
 func (s SpeciesEstimate) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	s.TaxonID = row["taxonid"]
@@ -38,5 +51,7 @@ func (s SpeciesEstimate) Load(headers, data []string) (DataLoader, error) {
 	s.Type = NewEstimateType(row["type"])
 	s.ReferenceID = row["referenceid"]
 	s.Remarks = row["remarks"]
+	s.Modified = row["modified"]
+	s.ModifiedBy = row["modifiedby"]
 	return s, warning
 }

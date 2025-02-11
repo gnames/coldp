@@ -29,6 +29,7 @@ func NewNomStatus(s string) NomStatus {
 	s = strings.ToLower(s)
 	s = strings.ReplaceAll(s, " ", "")
 	s = strings.ReplaceAll(s, ".", "")
+	s = strings.ReplaceAll(s, "_", "")
 	switch s {
 	case "":
 		return UnknownNomStatus

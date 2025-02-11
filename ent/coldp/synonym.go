@@ -41,6 +41,23 @@ type Synonym struct {
 	ModifiedBy string
 }
 
+func (s Synonym) Headers() []string {
+	return []string{
+		"col:id",
+		"col:taxonId",
+		"col:sourceId",
+		"col:nameId",
+		"col:namePhrase",
+		"col:accordingToId",
+		"col:status",
+		"col:referenceId",
+		"col:link",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 // Load populates a Synonym object from a row of data.
 func (s Synonym) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)

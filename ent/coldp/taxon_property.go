@@ -36,6 +36,21 @@ type TaxonProperty struct {
 	ModifiedBy string
 }
 
+func (t TaxonProperty) Headers() []string {
+	return []string{
+		"col:taxonId",
+		"col:sourceId",
+		"col:property",
+		"col:value",
+		"col:referenceId",
+		"col:page",
+		"col:ordinal",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 func (t TaxonProperty) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
 	t.TaxonID = row["taxonid"]

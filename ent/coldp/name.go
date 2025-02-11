@@ -144,6 +144,49 @@ type Name struct {
 	ModifiedBy string
 }
 
+func (n Name) Headers() []string {
+	return []string{
+		"col:id",
+		"col:alternativeId",
+		"col:sourceId",
+		"col:basionymId",
+		"col:scientificName",
+		"col:authorship",
+		"col:rank",
+		"col:uninomial",
+		"col:genus",
+		"col:infragenericEpithet",
+		"col:specificEpithet",
+		"col:infraspecificEpithet",
+		"col:cultivarEpithet",
+		"col:notho",
+		"col:originalSpelling",
+		"col:combinationAuthorship",
+		"col:combinationAuthorshipId",
+		"col:combinationExAuthorship",
+		"col:combinationExAuthorshipId",
+		"col:combinationAuthorshipYear",
+		"col:basionymAuthorship",
+		"col:basionymAuthorshipId",
+		"col:basionymExAuthorship",
+		"col:basionymExAuthorshipId",
+		"col:basionymAuthorshipYear",
+		"col:code",
+		"col:status",
+		"col:referenceId",
+		"col:publishedInYear",
+		"col:publishedInPage",
+		"col:publishedInPageLink",
+		"col:gender",
+		"col:genderAgreement",
+		"col:etymology",
+		"col:link",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 // Load processes a slice of strings into Name object using
 // field names from headers.
 func (n Name) Load(headers, data []string) (DataLoader, error) {

@@ -44,6 +44,31 @@ type Author struct {
 	ModifiedBy string
 }
 
+func (a Author) Headers() []string {
+	return []string{
+		"col:id",
+		"col:sourceId",
+		"col:alternativeId",
+		"col:given",
+		"col:family",
+		"col:suffix",
+		"col:abbreviationBotany",
+		"col:alternativeNames",
+		"col:sex",
+		"col:country",
+		"col:birth",
+		"col:birthPlace",
+		"col:death",
+		"col:affiliation",
+		"col:interest",
+		"col:referenceId",
+		"col:link",
+		"col:remarks",
+		"col:modified",
+		"col:modifiedBy",
+	}
+}
+
 // Load populates the Author data from a row of data.
 func (a Author) Load(headers, data []string) (DataLoader, error) {
 	row, warning := RowToMap(headers, data)
