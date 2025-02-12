@@ -162,18 +162,24 @@ func ToInt(s string) sql.NullInt64 {
 
 func ToBool(s string) sql.NullBool {
 	var res sql.NullBool
-	s = strings.ToLower(s)
+
 	s = strings.TrimSpace(s)
 	if s == "" {
 		return res
 	}
-	res.Valid = true
+
+	s = strings.ToLower(s)
 	b := s[0]
+
+	res.Valid = true
 	switch b {
 	case '1', 'y', 't':
 		res.Bool = true
+	case '0', 'n', 'f':
+		res.Bool = false
 	default:
 		res.Bool = false
+		res.Valid = false
 	}
 	return res
 }

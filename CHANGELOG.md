@@ -5,6 +5,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.7] - 2025-02-12 Wed
+
+Add: test for ToBool
+Add: Header methods
+Fix: several typos
+
 ## [v0.3.6] - 2025-02-02 Sun
 
 Add: BibTeX references format.
