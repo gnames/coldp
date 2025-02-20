@@ -7,7 +7,7 @@ import (
 
 	"github.com/gnames/coldp/config"
 	"github.com/gnames/coldp/ent/coldp"
-	"github.com/gnames/coldp/io/arcio"
+	"github.com/gnames/coldp/io/coldpio"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -101,7 +101,7 @@ func TestName(t *testing.T) {
 
 func Extract(path string) (coldp.Archive, error) {
 	cfg := config.New()
-	c := arcio.New(cfg, path)
+	c := coldpio.New(cfg, path)
 
 	err := c.Extract()
 	if err != nil {

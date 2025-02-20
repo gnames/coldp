@@ -1,11 +1,11 @@
-package arcio
+package coldpio
 
 import (
 	"github.com/gnames/coldp/ent/coldp"
 	"github.com/gnames/gnsys"
 )
 
-func (a *arcio) ResetCache() error {
+func (a *coldpio) ResetCache() error {
 	err := emptyCacheDir(a.cfg.CacheDir)
 	if err != nil {
 		return err

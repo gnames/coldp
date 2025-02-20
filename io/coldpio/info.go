@@ -1,4 +1,4 @@
-package arcio
+package coldpio
 
 import (
 	"os"
@@ -9,7 +9,7 @@ import (
 	"github.com/gnames/gnsys"
 )
 
-func (a *arcio) DirInfo() error {
+func (a *coldpio) DirInfo() error {
 	// get all fiels with their paths inside of the archive.
 	paths, err := a.getFiles()
 	if err != nil {
@@ -61,7 +61,7 @@ func getDataDir(paths []string) string {
 	return res
 }
 
-func (a *arcio) checkMeta(path, file, ext string, metaOK bool) bool {
+func (a *coldpio) checkMeta(path, file, ext string, metaOK bool) bool {
 	if metaOK {
 		return true
 	}
@@ -83,7 +83,7 @@ func (a *arcio) checkMeta(path, file, ext string, metaOK bool) bool {
 	return true
 }
 
-func (a *arcio) getFiles() ([]string, error) {
+func (a *coldpio) getFiles() ([]string, error) {
 	var files []string
 	root := a.cfg.ExtractDir
 

@@ -1,11 +1,11 @@
-package arcio
+package coldpio
 
 import (
 	"github.com/gnames/coldp/config"
 	"github.com/gnames/coldp/ent/coldp"
 )
 
-type arcio struct {
+type coldpio struct {
 	// path to the CoLDP archive file
 	path string
 
@@ -32,7 +32,7 @@ type arcio struct {
 }
 
 func New(cfg config.Config, path string) coldp.Archive {
-	res := arcio{
+	res := coldpio{
 		path:      path,
 		cfg:       cfg,
 		dataPaths: make(map[coldp.DataType]string),
@@ -43,10 +43,10 @@ func New(cfg config.Config, path string) coldp.Archive {
 
 // DataPaths returns map of low-case names of data files without extensions
 // and the path to these files.
-func (a *arcio) DataPaths() map[coldp.DataType]string {
+func (a *coldpio) DataPaths() map[coldp.DataType]string {
 	return a.dataPaths
 }
 
-func (a *arcio) Config() config.Config {
+func (a *coldpio) Config() config.Config {
 	return a.cfg
 }

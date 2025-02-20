@@ -1,4 +1,4 @@
-package arcio
+package coldpio
 
 import (
 	"archive/zip"
@@ -11,7 +11,7 @@ import (
 	"github.com/gnames/gnsys"
 )
 
-func (a *arcio) Extract() error {
+func (a *coldpio) Extract() error {
 	var err error
 	err = a.ResetCache()
 	if err != nil {
@@ -31,7 +31,7 @@ func (a *arcio) Extract() error {
 	return nil
 }
 
-func (a *arcio) unzip() error {
+func (a *coldpio) unzip() error {
 	exists, _ := gnsys.FileExists(a.path)
 	if !exists {
 		return &coldp.ErrorFileMissing{Path: a.path}

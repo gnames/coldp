@@ -1,4 +1,4 @@
-package arcio
+package coldpio
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-func (a *arcio) Meta() (res *coldp.Meta, err error) {
+func (a *coldpio) Meta() (res *coldp.Meta, err error) {
 	if a.meta != nil {
 		return a.meta, nil
 	}
