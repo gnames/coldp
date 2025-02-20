@@ -47,7 +47,7 @@ func TestNotZip(t *testing.T) {
 	path := filepath.Join("..", "..", "testdata", "notzip.zip")
 	arc, err := Extract(path)
 	assert.NotNil(err)
-	assert.IsType(&coldp.ErrExtract{}, err)
+	assert.IsType(&coldp.ErrUnzip{}, err)
 	assert.Nil(arc)
 }
 

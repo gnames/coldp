@@ -40,7 +40,7 @@ func (a *arcio) unzip() error {
 	// Open the zip file for reading.
 	r, err := zip.OpenReader(a.path)
 	if err != nil {
-		return &coldp.ErrExtract{Path: a.path, Err: err}
+		return &coldp.ErrUnzip{Path: a.path, Err: err}
 	}
 	defer r.Close()
 
@@ -48,7 +48,7 @@ func (a *arcio) unzip() error {
 		// Construct the full path for the file/directory and ensure its directory exists.
 		fpath := filepath.Join(a.cfg.ExtractDir, f.Name)
 		if err := os.MkdirAll(filepath.Dir(fpath), os.ModePerm); err != nil {
-			return &coldp.ErrExtract{Path: fpath, Err: err}
+			return &coldp.ErrUnzip{Path: fpath, Err: err}
 		}
 
 		// If it's a directory, move on to the next entry.
@@ -60,7 +60,7 @@ func (a *arcio) unzip() error {
 		// Open the file within the zip.
 		rc, err := f.Open()
 		if err != nil {
-			return &coldp.ErrExtract{Path: fpath, Err: err}
+			return &coldp.ErrUnzip{Path: fpath, Err: err}
 		}
 		defer rc.Close()
 
@@ -71,14 +71,14 @@ func (a *arcio) unzip() error {
 			f.Mode(),
 		)
 		if err != nil {
-			return &coldp.ErrExtract{Path: fpath, Err: err}
+			return &coldp.ErrUnzip{Path: fpath, Err: err}
 		}
 		defer outFile.Close()
 
 		// Copy the contents of the file from the zip to the new file.
 		_, err = io.Copy(outFile, rc)
 		if err != nil {
-			return &coldp.ErrExtract{Path: fpath, Err: err}
+			return &coldp.ErrUnzip{Path: fpath, Err: err}
 		}
 	}
 
