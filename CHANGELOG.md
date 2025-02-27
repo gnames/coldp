@@ -5,6 +5,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.9] - 2025-02-27 Thu
+
+Add: update modules.
+
+## [v0.3.8] - 2025-02-20 Thu
+
+Add: rename arcio to coldpio for clarity.
+Add: improve errors types.
+
 ## [v0.3.7] - 2025-02-12 Wed
 
 Add: test for ToBool
