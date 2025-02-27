@@ -20,6 +20,52 @@ import (
 	"github.com/gnames/gnlib"
 )
 
+// NormalizeHeaders attempts to normalize DarwinCore and ColDP terms to
+// headers that correspond to ColDP.
+func NormalizeHeaders(headers []string) map[string]int {
+	res := map[string]int{}
+	headers = gnlib.Map(headers, func(s string) string {
+		s = strings.ToLower(s)
+		els := strings.Split(s, ":")
+		return els[len(els)-1]
+	})
+
+	for i, v := range headers {
+		switch v {
+		case "id", "taxonid":
+			res["id"] = i
+			res["nameid"] = i
+		case "parentid", "parentnameusageid":
+			res["parentid"] = i
+		case "scientificname":
+			res["scientificname"] = i
+		case "authorship", "scientificnameauthorship":
+			res["authorship"] = i
+		case "notho":
+			res["notho"] = i
+		case "rank", "taxonrank":
+			res["rank"] = i
+		case "genus", "genericname":
+			res["genericname"] = i
+		case "infragenericepithet", "subgenus", "infragenus":
+			res["infragenericepithet"] = i
+		case "specificepithet", "species":
+			res["specificepithet"] = i
+		case "infraspecificepithet", "infraspecies":
+			res["infraspecificepithet"] = i
+		case "code", "nomenclaturalcode", "nomcode":
+			res["code"] = i
+		case "remarks", "taxonremarks":
+			res["remarks"] = i
+		case "link", "url":
+			res["link"] = i
+		default:
+			res[v] = i
+		}
+	}
+	return res
+}
+
 func ReadJSON[T DataLoader](
 	path string,
 	chIn chan T) error {
