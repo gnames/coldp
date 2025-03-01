@@ -55,7 +55,7 @@ type NameUsage struct {
 	Extinct                   sql.NullBool    // t
 	TemporalRangeStart        GeoTime         // t
 	TemporalRangeEnd          GeoTime         // t
-	Environment               string          // t
+	Environment               Environment     // t
 	Species                   string          // t
 	Section                   string          // t
 	Subgenus                  string          // t
@@ -212,7 +212,7 @@ func (n NameUsage) Load(headers, data []string) (DataLoader, error) {
 	n.Extinct = ToBool(row["extinct"])
 	n.TemporalRangeStart = NewGeoTime(row["temporalrangestart"])
 	n.TemporalRangeEnd = NewGeoTime(row["temporalrangeend"])
-	n.Environment = row["environment"]
+	n.Environment = NewEnvironment(row["environment"])
 	n.Species = row["species"]
 	n.Section = row["section"]
 	n.Subgenus = row["subgenus"]
