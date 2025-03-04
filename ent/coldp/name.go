@@ -27,11 +27,23 @@ type Name struct {
 	// Authorship is the verbatim authorship of the scientific name.
 	Authorship string
 
-	// ScientificNameString contains the most complete version of scientific name
+	// ScientificNameString (GN) contains the most complete version of scientific name
 	// available (with authorship, subgenus, intermediate authors, hybrid
 	// signs etc).
 	// It is not part of CoLDP standard.
 	ScientificNameString string
+
+	// CanonicalSimple (GN) is a simplified version of a name without authorship
+	// where hybrid signs and ranks are removed.
+	CanonicalSimple string
+
+	// CanonicalFull (GN) is the most complete representation of a name
+	// without authorship where details like hybrid signs or ranks are preserved.
+	CanonicalFull string
+
+	// CanonicalStemmed (GN) is a name where suffexes are removed from
+	// specific and infraspecific epithets.
+	CanonicalStemmed string
 
 	// Rank is the taxonomic rank of the name.
 	Rank Rank

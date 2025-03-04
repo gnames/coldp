@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.11] - 2025-03-04 Tue
+
+Add: canonical forms to name and name usage.
+
 ## [v0.3.10] - 2025-03-01 Sat
 
 Fix: environment in NameUsage.
