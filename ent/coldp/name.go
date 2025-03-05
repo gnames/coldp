@@ -1,6 +1,9 @@
 package coldp
 
-import "database/sql"
+import (
+	"database/sql"
+	"strings"
+)
 
 // Name contains information about a scientific name.
 type Name struct {
@@ -210,7 +213,7 @@ func (n Name) Load(headers, data []string) (DataLoader, error) {
 	n.ScientificName = row["scientificname"]
 	n.Authorship = row["authorship"] // verbatim author string
 	n.ScientificNameString = n.ScientificName
-	if n.Authorship != "" {
+	if n.Authorship != "" && !strings.HasSuffix(n.ScientificName, n.Authorship) {
 		n.ScientificNameString += " " + n.Authorship
 	}
 	n.Rank = NewRank(row["rank"])
