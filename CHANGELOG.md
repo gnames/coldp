@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.14] - 2025-03-10 Mon
+
+Add: update modules.
+
 ## [v0.3.13] - 2025-03-10 Mon
 
 Add: more fields from GN.
@@ -95,6 +99,7 @@ Add: initial commit
 
 This document follows [changelog guidelines]
 
+[v0.3.14]: https://github.com/gnames/coldp/compare/v0.3.13...v0.3.14
 [v0.3.13]: https://github.com/gnames/coldp/compare/v0.3.12...v0.3.13
 [v0.3.12]: https://github.com/gnames/coldp/compare/v0.3.11...v0.3.12
 [v0.3.11]: https://github.com/gnames/coldp/compare/v0.3.10...v0.3.11
