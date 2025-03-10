@@ -19,9 +19,16 @@ type NameUsage struct {
 	ScientificName            string          // n
 	Authorship                string          // n
 	ScientificNameString      string          // GN
+	ParseQuality              sql.NullInt64   // GN
 	CanonicalSimple           string          // GN
 	CanonicalFull             string          // GN
 	CanonicalStemmed          string          // GN
+	Cardinality               sql.NullInt64   // GN
+	Virus                     sql.NullBool    // GN
+	Hybrid                    string          // GN
+	Surrogate                 string          // GN
+	Authors                   string          // GN
+	GnID                      string          // GN
 	Rank                      Rank            // n
 	Notho                     NamePart        // n
 	OriginalSpelling          sql.NullBool    // n

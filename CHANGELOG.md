@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.13] - 2025-03-10 Mon
+
+Add: more fields from GN.
+
 ## [v0.3.12] - 2025-03-05 Wed
 
 Add: better ScientificNameString conversion.
@@ -91,19 +95,31 @@ Add: initial commit
 
 This document follows [changelog guidelines]
 
+[v0.3.13]: https://github.com/gnames/coldp/compare/v0.3.12...v0.3.13
+[v0.3.12]: https://github.com/gnames/coldp/compare/v0.3.11...v0.3.12
+[v0.3.11]: https://github.com/gnames/coldp/compare/v0.3.10...v0.3.11
+[v0.3.10]: https://github.com/gnames/coldp/compare/v0.3.9...v0.3.10
+[v0.3.9]: https://github.com/gnames/coldp/compare/v0.3.8...v0.3.9
+[v0.3.8]: https://github.com/gnames/coldp/compare/v0.3.7...v0.3.8
+[v0.3.7]: https://github.com/gnames/coldp/compare/v0.3.6...v0.3.7
+[v0.3.6]: https://github.com/gnames/coldp/compare/v0.3.5...v0.3.6
+[v0.3.5]: https://github.com/gnames/coldp/compare/v0.3.4...v0.3.5
+[v0.3.4]: https://github.com/gnames/coldp/compare/v0.3.3...v0.3.4
+[v0.3.3]: https://github.com/gnames/coldp/compare/v0.3.2...v0.3.3
+[v0.3.2]: https://github.com/gnames/coldp/compare/v0.3.1...v0.3.2
 [v0.3.1]: https://github.com/gnames/coldp/compare/v0.3.0...v0.3.1
 [v0.3.0]: https://github.com/gnames/coldp/compare/v0.2.0...v0.3.0
 [v0.2.0]: https://github.com/gnames/coldp/compare/v0.1.0...v0.2.0
 [v0.1.0]: https://github.com/gnames/coldp/compare/v0.0.0...v0.1.0
 [v0.0.0]: https://github.com/gnames/coldp/tree/v0.0.0
-[#10]: https://github.com/gnames/goldp/issues/10
-[#9]: https://github.com/gnames/goldp/issues/9
-[#8]: https://github.com/gnames/goldp/issues/8
-[#7]: https://github.com/gnames/goldp/issues/7
-[#6]: https://github.com/gnames/goldp/issues/6
-[#5]: https://github.com/gnames/goldp/issues/5
-[#4]: https://github.com/gnames/goldp/issues/4
-[#3]: https://github.com/gnames/goldp/issues/3
-[#2]: https://github.com/gnames/goldp/issues/2
-[#1]: https://github.com/gnames/goldp/issues/1
+[#10]: https://github.com/gnames/coldp/issues/10
+[#9]: https://github.com/gnames/coldp/issues/9
+[#8]: https://github.com/gnames/coldp/issues/8
+[#7]: https://github.com/gnames/coldp/issues/7
+[#6]: https://github.com/gnames/coldp/issues/6
+[#5]: https://github.com/gnames/coldp/issues/5
+[#4]: https://github.com/gnames/coldp/issues/4
+[#3]: https://github.com/gnames/coldp/issues/3
+[#2]: https://github.com/gnames/coldp/issues/2
+[#1]: https://github.com/gnames/coldp/issues/1
 [changelog guidelines]: https://keepachangelog.com/en/1.0.0/

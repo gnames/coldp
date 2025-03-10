@@ -193,53 +193,98 @@ func (w *FieldNumberWarning) Error() string {
 	return w.Message
 }
 
-func ToInt(s string) sql.NullInt64 {
+// ToInt attempts to convert a value to a sql.NullInt64,
+// handling both string and int input types.
+func ToInt[T string | int](val T) sql.NullInt64 {
 	var res sql.NullInt64
-	s = strings.ToLower(s)
-	s = strings.TrimSpace(s)
-	v, err := strconv.Atoi(s)
-	if err != nil {
-		return res
-	}
-	res.Int64 = int64(v)
-	res.Valid = true
-	return res
-}
 
-func ToBool(s string) sql.NullBool {
-	var res sql.NullBool
-
-	s = strings.TrimSpace(s)
-	if s == "" {
-		return res
-	}
-
-	s = strings.ToLower(s)
-	b := s[0]
-
-	res.Valid = true
-	switch b {
-	case '1', 'y', 't':
-		res.Bool = true
-	case '0', 'n', 'f':
-		res.Bool = false
+	switch v := any(val).(type) {
+	case string:
+		s := strings.ToLower(v)
+		s = strings.TrimSpace(s)
+		i, err := strconv.Atoi(s)
+		if err != nil {
+			return res
+		}
+		res.Int64 = int64(i)
+		res.Valid = true
+	case int:
+		res.Int64 = int64(v)
+		res.Valid = true
 	default:
-		res.Bool = false
 		res.Valid = false
 	}
+
 	return res
 }
 
-func ToFloat(s string) sql.NullFloat64 {
-	var res sql.NullFloat64
-	s = strings.ToLower(s)
-	s = strings.TrimSpace(s)
-	v, err := strconv.ParseFloat(s, 64)
-	if err != nil {
-		return res
-	}
-	res.Float64 = v
+// ToBool attempts to convert a value to a sql.NullBool,
+// handling both string and bool input types.
+func ToBool[T string | bool | int](val T) sql.NullBool {
+	var res sql.NullBool
 	res.Valid = true
+
+	switch v := any(val).(type) {
+	case string:
+		s := strings.TrimSpace(v)
+		if s == "" {
+			res.Valid = false
+			return res
+		}
+
+		s = strings.ToLower(s)
+		b := s[0]
+		switch b {
+		case '1', 'y', 't':
+			res.Bool = true
+		case '0', 'n', 'f':
+			res.Bool = false
+		default:
+			res.Bool = false
+			res.Valid = false
+		}
+	case int:
+		if v == 1 {
+			res.Bool = true
+		} else if v == 0 {
+			res.Bool = false
+		} else {
+			res.Valid = false
+		}
+	case bool:
+		res.Bool = v
+	default:
+		res.Valid = false
+	}
+
+	return res
+}
+
+// ToFloat attempts to convert a value to a sql.NullFloat64,
+// handling string, float64, and int input types.
+func ToFloat[T string | float64 | int](val T) sql.NullFloat64 {
+	var res sql.NullFloat64
+
+	switch v := any(val).(type) {
+	case string:
+		s := strings.ToLower(v)
+		s = strings.TrimSpace(s)
+		f, err := strconv.ParseFloat(s, 64)
+		if err != nil {
+			return res
+		}
+		res.Float64 = f
+		res.Valid = true
+	case float64:
+		res.Float64 = v
+		res.Valid = true
+	case int:
+		res.Float64 = float64(v)
+		res.Valid = true
+	default:
+		res.Valid = false
+	}
+
 	return res
 }
 
