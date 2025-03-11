@@ -37,6 +37,7 @@ type Actor struct {
 	Given        string `yaml:"given,omitempty"        json:"given,omitempty"`
 	Family       string `yaml:"family,omitempty"       json:"family,omitempty"`
 	Email        string `yaml:"email,omitempty"        json:"email,omitempty"`
+	City         string `yaml:"city,omitempty"         json:"city,omitempty"`
 	State        string `yaml:"state,omitempty"        json:"state,omitempty"`
 	Country      string `yaml:"country,omitempty"      json:"country,omitempty"`
 	RorID        string `yaml:"rorid,omitempty"        json:"rorid,omitempty"`

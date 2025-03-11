@@ -5,6 +5,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [v0.3.15] - 2025-03-11 Tue
+
+Add: City to Actor
+
 ## [v0.3.14] - 2025-03-10 Mon
 
 Add: update modules.
